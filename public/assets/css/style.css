@@ -2891,10 +2891,10 @@ ol {
 }
 
 .checkout-content .content-btn,
-.checkout-content input {
+.checkout-content input, .checkout-content textarea{
 	color: #252525;
 	font-size: 16px;
-	border: 2px solid #ebebeb;
+	border: 2px solid #ebebeb !important;
 	padding: 14px 20px;
 	background: #f3f3f3;
 	text-align: center;
@@ -2925,6 +2925,14 @@ ol {
 	width: 100%;
 	height: 46px;
 	border: 2px solid #ebebeb;
+	margin-bottom: 25px;
+	padding-left: 15px;
+}
+
+.checkout-form textarea {
+	width: 100%;
+	height: 46px;
+	border: 2px solid #ebebeb !important;
 	margin-bottom: 25px;
 	padding-left: 15px;
 }
