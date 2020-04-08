@@ -53,5 +53,11 @@ class AdminController extends AbstractController
                 ['product' => $product]
             );
         }
+        else{
+            return $this->render(
+                '/admin/includes/add_product_form.html.twig',
+                ['productForm' => $productForm->createView()]
+            );
+        }
     }
 }
