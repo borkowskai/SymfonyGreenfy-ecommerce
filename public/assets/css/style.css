@@ -2891,7 +2891,7 @@ ol {
 }
 
 .checkout-content .content-btn,
-.checkout-content input, .checkout-content textarea{
+.checkout-content input, .checkout-content textarea, .inputForm{
 	color: #252525;
 	font-size: 16px;
 	border: 2px solid #ebebeb !important;
@@ -2901,7 +2901,7 @@ ol {
 	display: block;
 }
 
-.checkout-content input {
+.checkout-content input , .inputForm{
 	height: 56px !important;
 }
 
@@ -2925,6 +2925,15 @@ ol {
 	width: 100%;
 	height: 46px;
 	border: 2px solid #ebebeb;
+	margin-bottom: 25px;
+	padding-left: 15px;
+}
+/* added for automatical form-widget*/
+.inputForm {
+	width: 100%;
+	height: 46px;
+	border: 10px solid red;
+	/* border: 2px solid #ebebeb; */
 	margin-bottom: 25px;
 	padding-left: 15px;
 }

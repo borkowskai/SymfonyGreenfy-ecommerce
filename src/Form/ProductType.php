@@ -4,6 +4,7 @@ namespace App\Form;
 use PhpParser\Builder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -17,7 +18,7 @@ class ProductType extends AbstractType {
                 ->add('priceExclVAT', MoneyType::class)
                 ->add('reorderQuantity', IntegerType::class)
                 ->add('reorderLevel', IntegerType::class);
-
+                // ->add('photo', FileType::class);
     }
     
 }

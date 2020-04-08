@@ -7,6 +7,7 @@ use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends AbstractController
 {
@@ -47,17 +48,33 @@ class AdminController extends AbstractController
             // $product = $productForm->getData();  // pas besoin, le submit remplit l'entite déjà
 
             // Rendu d'une vue où on affiche les données
-            // Normalement on faire CRUD ici ou une autre opération...
-            return $this->render(
-                '/admin/includes/add_product_form.html.twig',
-                ['product' => $product]
-            );
-        }
-        else{
-            return $this->render(
-                '/admin/includes/add_product_form.html.twig',
-                ['productForm' => $productForm->createView()]
-            );
-        }
+            // Normalement on faire CRUD ici ou une autre opération
+            $product-= $productForm->getData();
+            // //PHOTO INSERT
+            // // obtenir le fichier (objet)
+            // $fichier = $product->getPhoto();
+
+            // // générer un nom unique de fichier
+            // // ex: 4342KL345K.txt
+            // $nomFichierServeur = md5(uniqid()) . "." . $fichier->guessExtension();
+            // $fichier->move('dossierFichiers', $nomFichierServeur);
+
+            // // stocker dans la BD
+            $entityManager= $this->getDoctrine()->getManager();
+            // $product->setPhoto($nomFichierServeur);
+            
+            // lier l'objet avec la BD
+            $entityManager->persist($product);
+            // écrire l'objet dans la BD
+            $entityManager->flush();
+
+            return new Response("Fichier enregistré"); 
+            }
+        // else{
+        //     return $this->render(
+        //         '/admin/includes/add_product_form.html.twig',
+        //         ['productForm' => $productForm->createView()]
+        //     );
+        // }
     }
 }
