@@ -11,17 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends AbstractController
 {
+
     /**
-     * @Route("/admin/add-product", name="add-product")
+     * @Route("/admin/add-product", name="add_product")
      */
-    public function addProduct()
-    {
-        return $this->render('admin/add_product.html.twig');
-    }
-    /**
-     * @Route("/admin/add-product-form", name="add_product_form")
-     */
-    public function addProductForm(Request $request)
+    public function addProduct(Request $request)
     {
         // possible mais pas propre dans Symfony
         // $name = $request->get('name');
@@ -34,7 +28,7 @@ class AdminController extends AbstractController
             ProductType::class,
             $product,
             [
-                'action' => $this->generateUrl('add_product_form'),
+                'action' => $this->generateUrl('add_product'),
                 'method' => 'POST'
             ]
         );
@@ -73,7 +67,7 @@ class AdminController extends AbstractController
             }
         else{
             return $this->render(
-                '/admin/includes/add_product_form.html.twig',
+                '/admin/add_product.html.twig',
                 ['productForm' => $productForm->createView()]
             );
         }
