@@ -34,8 +34,8 @@ class AdminController extends AbstractController
             ProductType::class,
             $product,
             [
-                'method' => 'POST',
-                'action' => $this->generateUrl('add_product_form')
+                'action' => $this->generateUrl('add_product_form'),
+                'method' => 'POST'
             ]
         );
         // 3. Analyse de l'objet Request
@@ -44,37 +44,38 @@ class AdminController extends AbstractController
         // 4. Vérification: on vient d'un submit ou pas?
         // si oui, on traite le formulaire et on remplit l'entité
         if ($productForm->isSubmitted() && $productForm->isValid()) {
-            // Remplissage de l'entité avec les données du formulaire
-            // $product = $productForm->getData();  // pas besoin, le submit remplit l'entite déjà
+        // Remplissage de l'entité avec les données du formulaire
+        //   $livre = $formulaireLivre->getData(); // pas besoin, le submit remplit l'entite
 
-            // Rendu d'une vue où on affiche les données
-            // Normalement on faire CRUD ici ou une autre opération
-            $product-= $productForm->getData();
-            // //PHOTO INSERT
-            // // obtenir le fichier (objet)
-            // $fichier = $product->getPhoto();
 
-            // // générer un nom unique de fichier
-            // // ex: 4342KL345K.txt
-            // $nomFichierServeur = md5(uniqid()) . "." . $fichier->guessExtension();
-            // $fichier->move('dossierFichiers', $nomFichierServeur);
+            // traiter le formulaire
 
-            // // stocker dans la BD
-            $entityManager= $this->getDoctrine()->getManager();
-            // $product->setPhoto($nomFichierServeur);
-            
+            // obtenir le fichier (objet)
+            // obtenir le fichier (pas un "string" mais un objet de la class UploadedFile)
+            $file= $product->getPhoto();
+
+            // générer un nom unique de fichier
+            // ex: 4342KL345K.txt
+            $fileNameServer = md5(uniqid()) . "." . $file->guessExtension();
+            // il va tous seul creer un folder
+            $file ->move ('dossierFichiers', $fileNameServer);          
+
+            // stocker l'objet dans la BD, ou faire update
+            $entityManager = $this->getDoctrine()->getManager();
+            // $product->setPhoto($fileNameServer);
+
             // lier l'objet avec la BD
             $entityManager->persist($product);
             // écrire l'objet dans la BD
             $entityManager->flush();
 
-            return new Response("Fichier enregistré"); 
+            return new Response("Product added"); 
             }
-        // else{
-        //     return $this->render(
-        //         '/admin/includes/add_product_form.html.twig',
-        //         ['productForm' => $productForm->createView()]
-        //     );
-        // }
+        else{
+            return $this->render(
+                '/admin/includes/add_product_form.html.twig',
+                ['productForm' => $productForm->createView()]
+            );
+        }
     }
 }

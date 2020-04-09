@@ -1,13 +1,13 @@
 {# {% block body %}
-{{ form_start (productForm,  {'class': 'checkout-form'}) }}
+{{ form_start (productForm }}
 {{ form_widget (productForm.name) }}
-{{ form_widget (productForm.description) }}
+{# {{ form_widget (productForm.description) }}
 {{ form_widget (productForm.priceExclVAT) }}
 {{ form_widget (productForm.reorderQuantity) }}
-{{ form_widget (productForm.reorderLevel) }}
-<input type="submit" value="Envoyer">
+{{ form_widget (productForm.reorderLevel) }} #}
+{# <input type="submit" value="Envoyer">
 {{ form_end (productForm) }}
-{% endblock %} #}
+{% endblock %} #} 
 
 {{ form_start (productForm,  {'attr':{'class': 'checkout-form'}}) }}
     <div class="row">
@@ -28,7 +28,7 @@
                     <label for="price">Price Excl.VAT<span>*</span></label>
                     {{ form_widget (productForm.priceExclVAT, {'attr':{'class' : 'inputForm'}}) }}
                     {# <input type="text" id="price" name="price" required> #}
-                </div>
+               </div>
                 <div class="col-lg-12">
                     <label for="reorderQuantity">Reorder Quantity<span>*</span></label>
                     {{ form_widget (productForm.reorderQuantity, {'attr':{'class' : 'inputForm'}}) }}
@@ -39,11 +39,11 @@
                     {{ form_widget (productForm.reorderLevel, {'attr':{'class' : 'inputForm'}}) }}
                     {# <input type="text" id="reorderLevel" name="reorderreorderLevel"> #}
                 </div>
-                {# <div class="col-lg-12">
+                <div class="col-lg-12">
                     <label for="plantPhoto">Upload Photo<span>*</span></label>
                     {{ form_widget (productForm.photo, {'attr':{'class' : 'inputForm'}}) }}
-                    {# {# <input type="file" id="plantPhoto" name="plantPhoto"> #}
-                {#</div> #}
+                    {# <input type="file" id="plantPhoto" name="plantPhoto"> #}
+                </div>
 
 
                 <div class="col-lg-12">
@@ -62,4 +62,4 @@
             {# TODO  #}
         </div>
     </div>
-</form> 
+{{ form_end (productForm) }}

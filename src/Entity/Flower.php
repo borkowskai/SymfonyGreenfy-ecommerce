@@ -112,13 +112,13 @@ class Flower
 
         return $this;
     }
-
-    public function getPhoto(): ?string
+//effacer le retour par defaut pour pouvoir recevoir le file a la place du string
+    public function getPhoto()
     {
         return $this->photo;
     }
 
-    public function setPhoto(?string $photo): self
+    public function setPhoto( $photo)
     {
         $this->photo = $photo;
 

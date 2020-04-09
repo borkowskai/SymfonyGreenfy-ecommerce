@@ -17,8 +17,8 @@ class ProductType extends AbstractType {
                 ->add('description',TextareaType::class)
                 ->add('priceExclVAT', MoneyType::class)
                 ->add('reorderQuantity', IntegerType::class)
-                ->add('reorderLevel', IntegerType::class);
-                // ->add('photo', FileType::class);
+                ->add('reorderLevel', IntegerType::class)
+                ->add('photo', FileType::class);
     }
     
 }
