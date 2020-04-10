@@ -26,11 +26,6 @@ class Flower
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $description;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $photo;
 
     /**
@@ -78,10 +73,21 @@ class Flower
      */
     private $ListOfOrderLines;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Wish", mappedBy="flower")
+     */
+    private $ListOfWishes;
+
     public function __construct()
     {
         $this->dailyInventory = new ArrayCollection();
         $this->ListOfOrderLines = new ArrayCollection();
+        $this->ListOfWishes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -101,17 +107,7 @@ class Flower
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
 
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 //effacer le retour par defaut pour pouvoir recevoir le file a la place du string
     public function getPhoto()
     {
@@ -265,6 +261,49 @@ class Flower
             // set the owning side to null (unless already changed)
             if ($listOfOrderLine->getFlower() === $this) {
                 $listOfOrderLine->setFlower(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Wish[]
+     */
+    public function getListOfWishes(): Collection
+    {
+        return $this->ListOfWishes;
+    }
+
+    public function addListOfWish(Wish $listOfWish): self
+    {
+        if (!$this->ListOfWishes->contains($listOfWish)) {
+            $this->ListOfWishes[] = $listOfWish;
+            $listOfWish->setFlower($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListOfWish(Wish $listOfWish): self
+    {
+        if ($this->ListOfWishes->contains($listOfWish)) {
+            $this->ListOfWishes->removeElement($listOfWish);
+            // set the owning side to null (unless already changed)
+            if ($listOfWish->getFlower() === $this) {
+                $listOfWish->setFlower(null);
             }
         }
 
