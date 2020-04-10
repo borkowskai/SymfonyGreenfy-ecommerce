@@ -2,18 +2,23 @@
 namespace App\Form;
 
 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 // la classe pour avoir une entité comme champ du formulaire
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Size;
 use App\Entity\Color;
-
+use App\Entity\PlantType;
+use App\Repository\SizeRepository;
+use App\Repository\ColorRepository;
+use App\Repository\PlantTypeRepository;
 
 class ProductType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -24,7 +29,34 @@ class ProductType extends AbstractType {
                 ->add('reorderQuantity', IntegerType::class)
                 ->add('reorderLevel', IntegerType::class)
                 ->add('color', EntityType::class,[
-                    'class' => Color::class
+                    'class' => Color::class, 
+                    'query_builder' => function(ColorRepository $er){
+                        return $er->createQueryBuilder('generic')->orderBy('generic.name');
+                    },
+                    'choice_label' => function ($x)
+                    {
+                        return strtoupper($x->getName());
+                    }
+                ])
+                ->add('size', EntityType::class,[
+                    'class' => Size::class,
+                    'query_builder' => function(SizeRepository $er){
+                        return $er->createQueryBuilder('generic')->orderBy('generic.id');
+                    },
+                    'choice_label' => function ($x)
+                    {
+                        return strtoupper($x->getName());
+                    }
+                ])
+                ->add('plantType', EntityType::class,[
+                    'class' => PlantType::class,
+                    'query_builder' => function(PlantTypeRepository $er){
+                        return $er->createQueryBuilder('generic')->orderBy('generic.name');
+                    },
+                    'choice_label' => function ($x)
+                    {
+                        return strtoupper($x->getName());
+                    }
                 ])
                 ->add('photo', FileType::class);
 
