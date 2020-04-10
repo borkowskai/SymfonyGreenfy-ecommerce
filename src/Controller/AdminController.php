@@ -56,7 +56,7 @@ class AdminController extends AbstractController
 
             // stocker l'objet dans la BD, ou faire update
             $entityManager = $this->getDoctrine()->getManager();
-            // $product->setPhoto($fileNameServer);
+            //$product->setPhoto($fileNameServer);
 
             // lier l'objet avec la BD
             $entityManager->persist($product);
