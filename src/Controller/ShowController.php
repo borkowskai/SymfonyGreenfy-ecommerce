@@ -36,29 +36,32 @@ class ShowController extends AbstractController
         public function showShop (){
             $entityManager = $this->getDoctrine()->getManager();
             $rep = $entityManager->getRepository(Flower::class);
-            
+
+            $rep2 = $entityManager->getRepository(Color::class);
+
             // notez que findBy renverra toujours un array même s'il trouve 
             // qu'un objet
             $products = $rep->findAll();
-            $vars = ['products' => $products]; 
+            $colors = $rep2->findAll();
+            $vars = ['products' => $products, 'colors' => $colors]; 
             return $this->render("show/shop.html.twig",$vars);
         }
 
 
-        // /**
-        //  * @Route("/show/test", name="show-test")
-        //  */
-        //show color findAll
-        public function showColor (){
-            $entityManager = $this->getDoctrine()->getManager();
-            $rep = $entityManager->getRepository(Color::class);
+        // // /**
+        // //  * @Route("/show/test", name="show-test")
+        // //  */
+        // //show color findAll
+        // public function showColor (){
+        //     $entityManager = $this->getDoctrine()->getManager();
+        //     $rep = $entityManager->getRepository(Color::class);
             
-            // notez que findBy renverra toujours un array même s'il trouve 
-            // qu'un objet
-            $colors = $rep->findAll();
-            $vars2 = ['colors' => $colors]; 
-            return $this->render("show/shop.html.twig",$vars2);
-        }
+        //     // notez que findBy renverra toujours un array même s'il trouve 
+        //     // qu'un objet
+        //     $colors = $rep->findAll();
+        //     $vars2 = ['colors' => $colors]; 
+        //     return $this->render("show/shop.html.twig",$vars2);
+        // }
         
     
 }

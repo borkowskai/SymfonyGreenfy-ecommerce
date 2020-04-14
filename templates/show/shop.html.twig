@@ -88,8 +88,8 @@
                         <div class="fw-color-choose">
                         {% for color in colors %}
                             <div class="cs-item">
-                                <input type="radio" id="cs-#{ color.name }">
-                                <label class="cs-#{ color.name }" for="cs-#{ color.name }">{{ color.name }}</label>
+                                <input type="radio" id="cs-'{{color.name}}'">
+                                <label class="cs-'{{color.name}}'" for="cs-'{{color.name}}'">{{ color.name }}</label>
                             </div>
 
                         {% endfor %}
