@@ -54,6 +54,7 @@ class AdminController extends AbstractController
             // il va tous seul creer un folder
             $file ->move ('dossierFichiers', $fileNameServer);          
 
+            $product->setPhoto( $fileNameServer);
             // stocker l'objet dans la BD, ou faire update
             $entityManager = $this->getDoctrine()->getManager();
             //$product->setPhoto($fileNameServer);
