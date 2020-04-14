@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Color;
 use App\Entity\Flower;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 // SELECT: findOneBy
 class ShowController extends AbstractController
@@ -30,7 +31,7 @@ class ShowController extends AbstractController
         }
 
         /**
-         * @Route("/show/shop", name="show-product")
+         * @Route("/show/shop", name="show-shop")
          */
         public function showShop (){
             $entityManager = $this->getDoctrine()->getManager();
@@ -41,6 +42,22 @@ class ShowController extends AbstractController
             $products = $rep->findAll();
             $vars = ['products' => $products]; 
             return $this->render("show/shop.html.twig",$vars);
+        }
+
+
+        // /**
+        //  * @Route("/show/test", name="show-test")
+        //  */
+        //show color findAll
+        public function showColor (){
+            $entityManager = $this->getDoctrine()->getManager();
+            $rep = $entityManager->getRepository(Color::class);
+            
+            // notez que findBy renverra toujours un array même s'il trouve 
+            // qu'un objet
+            $colors = $rep->findAll();
+            $vars2 = ['colors' => $colors]; 
+            return $this->render("show/shop.html.twig",$vars2);
         }
         
     

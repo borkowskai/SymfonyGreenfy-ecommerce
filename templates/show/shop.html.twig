@@ -86,11 +86,14 @@
                     <div class="filter-widget">
                         <h4 class="fw-title">Color</h4>
                         <div class="fw-color-choose">
+                        {% for color in colors %}
                             <div class="cs-item">
-                                <input type="radio" id="cs-black">
-                                <label class="cs-black" for="cs-black">Black</label>
+                                <input type="radio" id="cs-#{ color.name }">
+                                <label class="cs-#{ color.name }" for="cs-#{ color.name }">{{ color.name }}</label>
                             </div>
-                            <div class="cs-item">
+
+                        {% endfor %}
+                            {# <div class="cs-item">
                                 <input type="radio" id="cs-violet">
                                 <label class="cs-violet" for="cs-violet">Violet</label>
                             </div>
@@ -109,7 +112,7 @@
                             <div class="cs-item">
                                 <input type="radio" id="cs-green">
                                 <label class="cs-green" for="cs-green">Green</label>
-                            </div>
+                            </div> #}
                         </div>
                     </div>
                     <div class="filter-widget">
