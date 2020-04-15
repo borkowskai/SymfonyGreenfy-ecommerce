@@ -21,6 +21,11 @@ class Wish
      */
     private $client;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Flower", inversedBy="ListOfWishes")
+     */
+    private $flower;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +39,18 @@ class Wish
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getFlower(): ?Flower
+    {
+        return $this->flower;
+    }
+
+    public function setFlower(?Flower $flower): self
+    {
+        $this->flower = $flower;
 
         return $this;
     }

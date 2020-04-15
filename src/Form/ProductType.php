@@ -24,9 +24,11 @@ class ProductType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class)
-                ->add('description',TextareaType::class)
+                ->add('description',TextareaType::class,[
+                    'data' => 'The largest genera are Bulbophyllum (2,000 species), Epidendrum (1,500 species), Dendrobium (1,400 species) and Pleurothallis (1,000 species). It also includes Vanilla (the genus of the vanilla plant), the type genus Orchis, and many commonly cultivated plants such as Phalaenopsis and Cattleya',
+                ])
                 ->add('priceExclVAT', MoneyType::class)
-                ->add('reorderQuantity', IntegerType::class)
+                ->add('reorderQuantity', IntegerType::class, ['data'=>'10'])//ausi possible dans twig  'value' : '10'
                 ->add('reorderLevel', IntegerType::class)
                 ->add('color', EntityType::class,[
                     'class' => Color::class, 
