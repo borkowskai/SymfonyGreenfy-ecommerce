@@ -148,8 +148,12 @@
                                                 <h5>{{ product.name }}</h5>
                                             </a>
                                             <div class="product-price">
-                                                {{ product.priceExclVAT }}
-                                                <span>$35.00</span>
+                                                Price {{ product.priceExclVAT }}
+                                                {# <span>{{ product.priceExclVAT * 1.2}} </span> #}
+                                            </div>
+                                            <div class="product-price">
+                                                Price VAT {{ product.priceVAT }}
+                                                {# <span>{{ product.priceVAT * 1.2}}</span> #}
                                             </div>
                                         </div>
                                     </div>

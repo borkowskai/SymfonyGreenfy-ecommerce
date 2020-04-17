@@ -15,16 +15,16 @@ class OrderController extends AbstractController
      * @Route("/order/add-orderLine", name="add-orderLine")
      */
     public function addOrderLine(Request $request){
-    
+
 
         $id =$request->get('id');
         $entityManager = $this->getDoctrine()->getManager();
         $flower = $entityManager->getRepository(Flower::class)->findOneBy(array("id"=>$id));
 
-        // apel a la TVA 
+
+        // apel a la TVA encore une fois pour eviter la maniplation sur le site 
         $tva = $entityManager->getRepository(TVA::class)->findAll();
         $tvaValue = $tva[0]->getTVAvalue();
-
        
         // // Création de l'entité OrderLine
         $orderLine = new OrderLine();

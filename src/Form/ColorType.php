@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class ColorType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //not used yet
+        //TODO iftimeallow
         $builder
                 // ->add('name', TextType::class)
                 ->add ('name', ChoiceType::class, [
