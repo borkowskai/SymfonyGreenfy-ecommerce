@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Flower;
+use App\Entity\TVA;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +45,15 @@ class AdminController extends AbstractController
 
             // traiter le formulaire
 
+            // ajouter TVA
+            // open DB
+            $entityManager = $this->getDoctrine()->getManager();
+            $tva = $entityManager->getRepository(TVA::class)->findAll();
+            $tvaValue = $tva[0]->getTVAvalue();
+            $priceExclVAT = $product->getPriceExclVAT();
+            $priceVAT = $priceExclVAT+(($priceExclVAT*$tvaValue)/100.00);
+            $product->setPriceVAT($priceVAT);
+
             // obtenir le fichier (objet)
             // obtenir le fichier (pas un "string" mais un objet de la class UploadedFile)
             $file= $product->getPhoto();
@@ -56,8 +66,8 @@ class AdminController extends AbstractController
 
             $product->setPhoto( $fileNameServer);
             // stocker l'objet dans la BD, ou faire update
-            $entityManager = $this->getDoctrine()->getManager();
-            //$product->setPhoto($fileNameServer);
+            // $entityManager = $this->getDoctrine()->getManager();
+            $product->setPhoto($fileNameServer);
 
             // lier l'objet avec la BD
             $entityManager->persist($product);

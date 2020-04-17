@@ -27,34 +27,17 @@
                     <div class="filter-widget">
                         <h4 class="fw-title">Categories</h4>
                         <div class="fw-brand-check">
-                            <div class="bc-item">
-                                <label for="bc-calvin">
-                                    Petit Modele
-                                    <input type="checkbox" id="bc-calvin">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="bc-item">
-                                <label for="bc-diesel">
-                                    Moyen Modele
-                                    <input type="checkbox" id="bc-diesel">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="bc-item">
-                                <label for="bc-polo">
-                                    Grand Modele
-                                    <input type="checkbox" id="bc-polo">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="bc-item">
-                                <label for="bc-tommy">
-                                    Option ***VIP***
-                                    <input type="checkbox" id="bc-tommy">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
+                            {# -------- show size/cathegories  ----------#}
+                            {% for size in sizes %}
+                                <div class="bc-item">
+                                    <label for="bc-'{{size.name}}'">
+                                        {{ size.name }}
+                                        <input type="checkbox" id="bc-{{size.name}}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                            {# -------- end size/cathegories  ----------#}
                         </div>
                     </div>
                     <div class="filter-widget">
@@ -82,7 +65,7 @@
                             {% for color in colors %}
                                 <div class="cs-item">
                                     <input type="radio" id="cs-'{{color.name}}'">
-                                    <label class="cs-'{{color.name}}'" for="cs-'{{color.name}}'">{{ color.name }}</label>
+                                    <label class="cs-'{{color.name}}'" for="cs-'{{color.name}}'">{{ color.name|lower  }}</label>
                                 </div>
 
                             {% endfor %}
@@ -90,18 +73,7 @@
                         </div>
                     </div>
 
-                    <div class="filter-widget">
-                        <h4 class="fw-title">Tags</h4>
-                        <div class="fw-tags">
-                            <a href="#">Towel</a>
-                            <a href="#">Shoes</a>
-                            <a href="#">Coat</a>
-                            <a href="#">Dresses</a>
-                            <a href="#">Trousers</a>
-                            <a href="#">Men's hats</a>
-                            <a href="#">Backpack</a>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="col-lg-9 order-1 order-lg-2">
                     <div class="product-show-option">
@@ -135,7 +107,8 @@
                                                 <i class="icon_heart_alt"></i>
                                             </div>
                                             <ul>
-                                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                            {# <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li> #}
+                                                <li class="w-icon active"><a href="{{ path ('add-orderLine', { id : product.id }) }}"><i class="icon_bag_alt"></i></a></li>
                                                 <li class="quick-view"><a href="#">+ Quick View</a></li>
                                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                             </ul>
@@ -147,8 +120,12 @@
                                                 <h5>{{ product.name }}</h5>
                                             </a>
                                             <div class="product-price">
-                                                {{ product.priceExclVAT }}
-                                                <span>$35.00</span>
+                                                Price {{ product.priceExclVAT }}
+                                                {# <span>{{ product.priceExclVAT * 1.2}} </span> #}
+                                            </div>
+                                            <div class="product-price">
+                                                Price VAT {{ product.priceVAT }}
+                                                {# <span>{{ product.priceVAT * 1.2}}</span> #}
                                             </div>
                                         </div>
                                     </div>
