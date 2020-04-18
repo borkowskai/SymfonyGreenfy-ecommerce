@@ -8,6 +8,7 @@ use App\Entity\Color;
 use App\Entity\Flower;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 // SELECT: findOneBy
 class ShowController extends AbstractController
@@ -15,21 +16,23 @@ class ShowController extends AbstractController
     /**
      * @Route("/show/product", name="show-product")
      */
-        public function exempleFindOneBy (){
-            // obtenir le entity manager
+        public function exempleFindOneBy (Request $request){
+
+            $id =$request->get('id');
             $entityManager = $this->getDoctrine()->getManager();
-            // obtenir le repository
-            $rep = $entityManager->getRepository(Flower::class);
-            
-            // on obtient l'objet, le filtre est envoyé sous la forme d'un array
-            $product = $rep->findOneBy (array('name'=>'Lady\'s Slipper Orchid'));
-            
-            // on stocke le résultat dans un array associatif 
-            // pour l'envoyer à la vue comme d'habitude
-            $vars = ['product'=> $product];
-            
-            // on renvoie l'objet à la vue, rien ne change ici
-            return $this->render ("/show/product.html.twig", $vars);
+            $product = $entityManager->getRepository(Flower::class)->findOneBy(array("id"=>$id));
+
+            // apel a la TVA 
+            $tva = $entityManager->getRepository(TVA::class)->findAll();
+            $tvaValue = $tva[0]->getTVAvalue();
+          
+                $priceExclVAT= $product->getPriceExclVAT();
+                $priceVAT = $priceExclVAT + ($priceExclVAT*$tvaValue)/100.00;
+                $priceVAT= number_format($priceVAT, 2, '.', '');
+                $product->setPriceVAT($priceVAT);
+
+            $vars = ['product' => $product]; 
+            return $this->render("/show/product.html.twig",$vars);
         }
 
         /**
@@ -43,8 +46,7 @@ class ShowController extends AbstractController
 
             $rep3 = $entityManager->getRepository(Size::class);
 
-            // notez que findBy renverra toujours un array même s'il trouve 
-            // qu'un objet
+            // Renvoie un array d'objets contenant tous les éléments du tableau
             $products = $rep->findAll();
 
             // apel a la TVA 
@@ -65,25 +67,25 @@ class ShowController extends AbstractController
             // prends Couleurs
             $sizes= $rep3->findAll();
             $vars = ['products' => $products, 'colors' => $colors,'sizes' => $sizes]; 
-            return $this->render("show/shop.html.twig",$vars);
+            return $this->render("/show/shop.html.twig",$vars);
         }
 
+        // /**
+        //  * @Route("/client/recherche/traitement/ajax", options={"expose"=true}, name="traitement_rechercheClientAjax")
+        //  */
+        // public function rechercheClientAjax(Request $request)
+        // {
 
-        // // /**
-        // //  * @Route("/show/test", name="show-test")
-        // //  */
-        // //show color findAll
-        // public function showColor (){
-        //     $entityManager = $this->getDoctrine()->getManager();
-        //     $rep = $entityManager->getRepository(Color::class);
+        //     $clientId = $request->request->get('clientId');
             
-        //     // notez que findBy renverra toujours un array même s'il trouve 
-        //     // qu'un objet
-        //     $colors = $rep->findAll();
-        //     $vars2 = ['colors' => $colors]; 
-        //     return $this->render("show/shop.html.twig",$vars2);
-        // }
+        //         $em = $this->getDoctrine()->getManager();
+        //         $query = $em->createQuery ('SELECT photo,client FROM App\Entity\Photo photo JOIN photo.client client WHERE client.id = :input');
+        //         $query->setParameter('input', $clientId );
         
+        //         $client = $query->getArrayResult();
+
+        //         return new JsonResponse($client);
+        // }
     
 }
 

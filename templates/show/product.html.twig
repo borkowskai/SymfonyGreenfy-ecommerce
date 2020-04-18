@@ -11,7 +11,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
                         <a href="{{ path ('index') }}"><i class="fa fa-home"></i> Home</a>
-                        <a href="{{ path ('shop') }}">Shop</a>
+                        <a href="{{ path ('show-shop') }}">Shop</a>
                         <span>Detail</span>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="product-pic-zoom">
-                                <img class="product-big-img" src="{{ asset ('assets/img/product-single/product-1.jpg') }}" alt="">
+                               <img src="{{ asset ('dossierFichiers/' ~ product.photo  ) }}" alt="{{ product.name }}">
                                 <div class="zoom-icon">
                                     <i class="fa fa-search-plus"></i>
                                 </div>
@@ -177,52 +177,25 @@
                                     <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
                                 </div>
                                 <div class="pd-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <span>(5)</span>
+                                <div class="catagory-name"> {{ product.getPlantType.GetName }} </div>
                                 </div>
                                 <div class="pd-desc">
                                     <p>{{ product.description }}</p>
-                                    <h4> {{ product.priceExclVAT}} <span>69.99</span></h4>
+                                    <h5> Price {{ product.priceExclVAT}} {# <span>{{ product.priceExclVAT * 1.2}} </span> #}</h5>
+                                    <h5> Price VAT {{ product.priceVAT }} {# <span>{{ product.priceVAT * 1.2}}</span> #}</h5>
                                 </div>
+                                <label for="sm-{{product.getSize.getName}}">Size {{product.getSize.getName}}</label>
                                 <div class="pd-color">
                                     <h6>Color</h6>
                                     <div class="pd-color-choose">
                                         <div class="cc-item">
-                                            <input type="radio" id="cc-black">
-                                            <label for="cc-black"></label>
-                                        </div>
-                                        <div class="cc-item">
-                                            <input type="radio" id="cc-yellow">
-                                            <label for="cc-yellow" class="cc-yellow"></label>
-                                        </div>
-                                        <div class="cc-item">
-                                            <input type="radio" id="cc-violet">
-                                            <label for="cc-violet" class="cc-violet"></label>
-                                        </div>
+                                            <input type="radio" id="cc-{{product.getColor.getName}}">
+                                            <label for="cc-{{product.getColor.getName}}">    </label>     
+                                            {{product.getColor.getName|lower}}                               
+                                        </div>           
                                     </div>
                                 </div>
-                                <!-- <div class="pd-size-choose">
-                                    <div class="sc-item">
-                                        <input type="radio" id="sm-size">
-                                        <label for="sm-size">s</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="md-size">
-                                        <label for="md-size">m</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="lg-size">
-                                        <label for="lg-size">l</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="xl-size">
-                                        <label for="xl-size">xs</label>
-                                    </div>
-                                </div> -->
+
                                 <div class="quantity">
                                     <div class="pro-qty">
                                         <input type="text" value="1">
@@ -276,7 +249,7 @@
                                                     aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
                                             </div>
                                             <div class="col-lg-5">
-                                                <img src="{{ asset ('assets/img/product-single/tab-desc.jpg') }}" alt="">
+                                                <img src="{{ asset ('dossierFichiers/' ~ product.photo  ) }}" alt="{{ product.name }}">
                                             </div>
                                         </div>
                                     </div>
