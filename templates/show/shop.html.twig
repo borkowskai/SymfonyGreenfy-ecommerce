@@ -64,8 +64,8 @@
                             {# -------- show colors  ----------#}
                             {% for color in colors %}
                                 <div class="cs-item">
-                                    <input type="radio" id="cs-'{{color.name}}'">
-                                    <label class="cs-'{{color.name}}'" for="cs-'{{color.name}}'">{{ color.name|lower  }}</label>
+                                    <input type="radio" id="cs-{{color.name}}" class="colors">
+                                    <label class="cs-{{color.name}}" for="cs-{{color.name}}">{{ color.name|lower  }}</label>
                                 </div>
 
                             {% endfor %}
@@ -109,13 +109,13 @@
                                             <ul>
                                             {# <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li> #}
                                                 <li class="w-icon active"><a href="{{ path ('add-orderLine', { id : product.id }) }}"><i class="icon_bag_alt"></i></a></li>
-                                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                                <li class="quick-view"><a href="{{ path ('show-product', { id : product.id }) }}">+ Quick View</a></li>
                                                 <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                             </ul>
                                         </div>
                                         <div class="pi-text">
                                         {# TODO #}
-                                            {# <div class="catagory-name"> {{ product->getPlantType() }} </div> #}
+                                            <div class="catagory-name"> {{ product.getPlantType.GetName }} </div>
                                             <a href="#">
                                                 <h5>{{ product.name }}</h5>
                                             </a>
@@ -152,4 +152,8 @@
 
 {% block javascripts %}
 {{ parent() }}
+<script>
+
+</script>
+
 {% endblock %}

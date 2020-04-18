@@ -1891,7 +1891,7 @@ ol {
 	color: #636363;
 }
 
-.filter-widget .fw-color-choose .cs-item label.cs-violet:before {
+.filter-widget .fw-color-choose .cs-item label.cs-purple:before {
 	background: #8230E3;
 }
 
@@ -1902,7 +1902,24 @@ ol {
 .filter-widget .fw-color-choose .cs-item label.cs-yellow:before {
 	background: #EEEE21;
 }
-
+.filter-widget .fw-color-choose .cs-item label.cs-pink:before {
+	background: #e83e8c;
+}
+.filter-widget .fw-color-choose .cs-item label.cs-beige:before {
+	background: #EEEEC3;
+}
+.filter-widget .fw-color-choose .cs-item label.cs-cream:before {
+	background: #FAFAEB;
+}
+.filter-widget .fw-color-choose .cs-item label.cs-Peach:before {
+	background: #FFE4B3;
+}
+.filter-widget .fw-color-choose .cs-item label.cs-white:before {
+	background: #F2F2F2;
+}
+.filter-widget .fw-color-choose .cs-item label.cs-burgundy:before {
+	background: #6b0000;
+}
 .filter-widget .fw-color-choose .cs-item label.cs-red:before {
 	background: #DC3232;
 }
@@ -2197,12 +2214,12 @@ ol {
 	color: #636363;
 }
 
-.product-details .pd-desc h4 {
+.product-details .pd-desc h5 {
 	color: #e7ab3c;
 	font-weight: 700;
 }
 
-.product-details .pd-desc h4 span {
+.product-details .pd-desc h5 span {
 	font-size: 18px;
 	font-weight: 400;
 	color: #b7b7b7;
