@@ -267,9 +267,56 @@
     $('.addBasket').html(countBasket);
     $('.basket').click(function (e) {
         e.preventDefault();
+
+        var test1 = {
+
+            "test" : "var1",
+            "test3" : "var2"
+        }
+        var path = (window.location.protocol + '//' + window.location.hostname + ':' + window.location.port);
+        var request = $.ajax(
+            {
+                method  : 'POST',
+                url     : path + "/session",
+                contentType: 'application/json',
+                dataType: 'json',
+                data    : {
+                    
+                    data: test1
+                },
+
+            
+
+                // beforeSend() {
+
+                //     // self.$_ajaxLoaderComponent.addAjaxLoader();
+                // },
+
+                // complete() {
+
+                //     // self.$_ajaxLoaderComponent.removeAjaxLoader();
+                // }
+            }
+        );
+
+            request
+            
+                .done(function (feedback_){
+
+                    console.log(feedback_);
+
+                }).fail(function (error_){
+
+                    console.log(error_);
+
+                })
+
+
         countBasket += 1;
         $('.addBasket').html(countBasket);
     });
+
+    
 
     
 })(jQuery);
