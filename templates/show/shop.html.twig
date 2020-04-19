@@ -65,7 +65,7 @@
                             {% for color in colors %}
                                 <div class="cs-item">
                                     <input type="radio" id="cs-{{color.name}}" class="colors">
-                                    <label class="cs-{{color.name}}" for="cs-{{color.name}}">{{ color.name|lower  }}</label>
+                                    <label class="cs-{{color.name}}" for="cs-{{color.name}}">{{ color.name|lower }}</label>
                                 </div>
 
                             {% endfor %}
@@ -104,7 +104,7 @@
                                             <img src="{{ asset ('dossierFichiers/' ~ product.photo  ) }}" alt="{{ product.name }}">
                                             {# <div class="sale pp-sale">Sale</div> #}
                                             <div class="icon">
-                                                <i class="icon_heart_alt"></i>
+                                                <i class="icon_heart_alt wish" id="icon_heart_alt_wish"></i>
                                             </div>
                                             <ul>
                                             {# <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li> #}
@@ -152,8 +152,4 @@
 
 {% block javascripts %}
 {{ parent() }}
-<script>
-
-</script>
-
 {% endblock %}

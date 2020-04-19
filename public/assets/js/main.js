@@ -245,6 +245,18 @@
 			}
 		}
 		$button.parent().find('input').val(newVal);
-	});
-
+    });
+    
+    /*-------------------
+		Iza Wish
+    --------------------- */
+    $(document).ready(function() {
+        $('.wish').click(function (e) {
+            e.preventDefault();
+            console.log('test')
+            $('.addWish').addClass("test");
+            // const id = $(this).attr('href');
+            // $('html,body').animate({ scrollTop: $(id).offset().top - 100 }, 1000);
+        });
+    });
 })(jQuery);
