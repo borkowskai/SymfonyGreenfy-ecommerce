@@ -247,16 +247,29 @@
 		$button.parent().find('input').val(newVal);
     });
     
-    /*-------------------
+    /*------------------------
 		Iza Wish
-    --------------------- */
-    $(document).ready(function() {
-        $('.wish').click(function (e) {
-            e.preventDefault();
-            console.log('test')
-            $('.addWish').addClass("test");
-            // const id = $(this).attr('href');
-            // $('html,body').animate({ scrollTop: $(id).offset().top - 100 }, 1000);
-        });
+    -------------------------- */
+
+    let countWish = 0;
+    $('.addWish').html(countWish);
+    $('.wish').click(function (e) {
+        e.preventDefault();
+        countWish += 1;
+        $('.addWish').html(countWish);
     });
+
+    /*-----------------------------
+		Iza Basket Management
+    ------------------------------ */
+
+    let countBasket =0;
+    $('.addBasket').html(countBasket);
+    $('.basket').click(function (e) {
+        e.preventDefault();
+        countBasket += 1;
+        $('.addBasket').html(countBasket);
+    });
+
+    
 })(jQuery);
