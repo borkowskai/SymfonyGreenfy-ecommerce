@@ -57,10 +57,16 @@ class SessionController extends AbstractController
             $product = $productRepo->find($key);
 
             $name = $product->getName();
+            $photo = $product->getPhoto();
+            $priceExclVAT = $product->getPriceExclVAT();
+            //$priceVAT = TODO method service 
 
             $orderLineWithData[] = [
                 'product_name' => $name,
-                'quantity' => $quantity
+                'quantity' => $quantity,
+                'photo' => $photo,
+                'priceExclVAT' => $priceExclVAT
+                
             ];
         }
 
