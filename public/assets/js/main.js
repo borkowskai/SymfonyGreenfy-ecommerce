@@ -277,38 +277,25 @@
         var request = $.ajax(
             {
                 method  : 'POST',
-                url     : path + "/session",
+                url     : path + "/session",//route from controller
                 contentType: 'application/json',
                 dataType: 'json',
-                data    : {
-                    
+                data    : {                 
                     data: test1
                 },
-
-            
-
                 // beforeSend() {
-
                 //     // self.$_ajaxLoaderComponent.addAjaxLoader();
                 // },
-
                 // complete() {
-
                 //     // self.$_ajaxLoaderComponent.removeAjaxLoader();
                 // }
             }
         );
-
-            request
-            
+            request         
                 .done(function (feedback_){
-
                     console.log(feedback_);
-
                 }).fail(function (error_){
-
                     console.log(error_);
-
                 })
 
 

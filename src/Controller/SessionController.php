@@ -21,12 +21,12 @@ class SessionController extends AbstractController
     {
 
 
-        if($request_->isXmlHttpRequest()){
-
+        if($request_->isXmlHttpRequest())
+        {
             $session_->set('attribute-name', 'attribute-value');
         }
-        else{
-
+        else
+        {
             
         }
         return $response = new JsonResponse(['data' => 123]);
