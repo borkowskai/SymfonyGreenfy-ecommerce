@@ -2702,12 +2702,16 @@ ol {
 	padding-bottom: 34px;
 }
 
+.cart-table table tr td.first-row img{
+	width: 50%;
+	height: 40%;	
+}
 .cart-table table tr td.first-row {
 	padding-top: 30px;
 }
 
 .cart-table table tr td.cart-pic {
-	width: 21%;
+	width: 15%;
 }
 
 .cart-table table tr td.cart-title {
