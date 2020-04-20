@@ -268,20 +268,15 @@
         $(basket_head).html('');
 
         for(let item of data){
-            console.log(item.product_name);
-            console.log(item.quantity);
-
+            
             const html = `<tr>
-            <td class="si-pic"><img src="/dossierFichiers/img/select-product-1.jpg" alt=""></td>
+            <td class="si-pic"><img src="/dossierFichiers/${item.photo}" alt="${item.photo}"></td>
                 <td class="si-text">
                     <div class="product-selected">
                         <h6>${item.product_name}</h6>
                         <p> ${item.quantity}</p>
                         <p> ${item.priceExclVAT}</p>
                     </div>
-                </td>
-                <td class="si-close">
-                    <i class="ti-close"></i>
                 </td>
             </tr>`;
             $(basket_head).append(html);
