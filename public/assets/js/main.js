@@ -263,14 +263,6 @@
 		Iza Basket Management
     ------------------------------ */
 
-    let countBasket =0;
-    $('.addBasket').html(countBasket);
-    $('.basket').click(function (e) {
-        e.preventDefault();
-        countBasket += 1;
-        $('.addBasket').html(countBasket);
-    });
-
     function createBasket(data){
         const basket_head = $('#basket_head');
         $(basket_head).html('');
@@ -280,11 +272,12 @@
             console.log(item.quantity);
 
             const html = `<tr>
-            <td class="si-pic"><img src="/assets/img/select-product-1.jpg" alt=""></td>
+            <td class="si-pic"><img src="/dossierFichiers/img/select-product-1.jpg" alt=""></td>
                 <td class="si-text">
                     <div class="product-selected">
-                        <p>$60.00 x ${item.quantity}</p>
                         <h6>${item.product_name}</h6>
+                        <p> ${item.quantity}</p>
+                        <p> ${item.priceExclVAT}</p>
                     </div>
                 </td>
                 <td class="si-close">
@@ -295,6 +288,7 @@
         }
     }
 
+    //important to do ifnot after refresh nothing in json 
     $(document).ready(function(){
         fetch('/all-basket')
             .then(response => response.json())
