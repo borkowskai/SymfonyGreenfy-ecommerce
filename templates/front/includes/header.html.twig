@@ -59,7 +59,7 @@
                                 </a>
                             </li>
                             <li class="cart-icon">
-                                <a href="#">
+                                <a href="{{ path ('shopping_cart') }}">
                                     <i class="icon_bag_alt"></i>
                                     <span class="addBasket"></span>
                                 </a>
@@ -73,9 +73,9 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="select-total">
+                                    <div class="select-total" >
                                         <span>total:</span>
-                                        <h5>$120.00</h5>
+                                        <h5 class="sum_basket"></h5>
                                     </div>
                                     <div class="select-button">
                                         <a href="{{ path ('shopping_cart') }}" class="primary-btn view-card">VIEW CARD</a>
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="cart-price">$150.00</li>
+                            <li class="cart-price sum_basket"></li>
                         </ul>
                     </div>
                 </div>

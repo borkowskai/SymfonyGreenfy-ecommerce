@@ -262,25 +262,38 @@
     /*-----------------------------
 		Iza Basket Management
     ------------------------------ */
-
+    let addBasket = $('.addBasket');
+    addBasket.html(0);
     function createBasket(data){
         const basket_head = $('#basket_head');
         $(basket_head).html('');
 
+        const sum_basket = $('.sum_basket');
+        $(sum_basket).html('');
+
+        let total = 0;
+        let counter =0;
         for(let item of data){
+            counter ++;
+
+            let subTotal =  item.priceExclVAT * item.quantity;
+            total += subTotal;
             
             const html = `<tr>
             <td class="si-pic"><img src="/dossierFichiers/${item.photo}" alt="${item.photo}"></td>
                 <td class="si-text">
                     <div class="product-selected">
                         <h6>${item.product_name}</h6>
-                        <p> ${item.quantity}</p>
-                        <p> ${item.priceExclVAT}</p>
+                        <p> quantity : ${item.quantity}</p>
+                        <p> price : ${item.priceExclVAT}</p>
                     </div>
                 </td>
             </tr>`;
             $(basket_head).append(html);
         }
+        $(addBasket).html(counter);
+        $(sum_basket).html(total.toFixed(2) + " €");
+        console.log(total);
     }
 
     //important to do ifnot after refresh nothing in json 
@@ -289,7 +302,7 @@
             .then(response => response.json())
             .then(response => {
                 createBasket(response);
-            });
+            })
     });
 
     $('[data-basket-id]').click(function(e){
@@ -302,6 +315,7 @@
             .then(response => response.json())
             .then(response => {
                 createBasket(response);
+                sumBasket(response);
             });
         
     });
