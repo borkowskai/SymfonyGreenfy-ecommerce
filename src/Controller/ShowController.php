@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\TVA;
+// use App\Entity\TVA;
 use App\Entity\Size;
 use App\Entity\Color;
 use App\Entity\Flower;
+use App\Service\ServiceTVA;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 // SELECT: findOneBy
 class ShowController extends AbstractController
@@ -16,18 +17,19 @@ class ShowController extends AbstractController
     /**
      * @Route("/show/product", name="show-product")
      */
-        public function exempleFindOneBy (Request $request){
+        public function exempleFindOneBy (Request $request, ServiceTVA $serviceVat){
 
             $id =$request->get('id');
             $entityManager = $this->getDoctrine()->getManager();
             $product = $entityManager->getRepository(Flower::class)->findOneBy(array("id"=>$id));
 
-            // apel a la TVA 
-            $tva = $entityManager->getRepository(TVA::class)->findAll();
-            $tvaValue = $tva[0]->getTVAvalue();
+            // // apel a la TVA  => modifier par un service
+            // $vat = $entityManager->getRepository(TVA::class)->findAll();
+            // $vatValue = $vat[0]->getTVAvalue();
           
                 $priceExclVAT= $product->getPriceExclVAT();
-                $priceVAT = $priceExclVAT + ($priceExclVAT*$tvaValue)/100.00;
+                $vatValue = $serviceVat->calculateVAT();
+                $priceVAT = $priceExclVAT + ($priceExclVAT*$vatValue)/100.00;
                 $priceVAT= number_format($priceVAT, 2, '.', '');
                 $product->setPriceVAT($priceVAT);
 
