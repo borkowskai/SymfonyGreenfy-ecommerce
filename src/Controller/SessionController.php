@@ -31,8 +31,8 @@ class SessionController extends AbstractController
 
         $orderLineWithData = [];
 
-        foreach ($orderLine as $key => $quantity) {
-            $product = $productRepo->find($key);
+        foreach ($orderLine as $id => $quantity) {
+            $product = $productRepo->find($id);
 
             //needed to enter in every line because json doesn't have acces to methods //like twig
             $name = $product->getName();
@@ -182,16 +182,38 @@ class SessionController extends AbstractController
     //     return $this->redirectToRoute('shopping_cart');
     // }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
      /**
-     * @Route("/session/qtyUpdate", name="cart_qtyUpdate")
+     * @Route("/session/qtyUpdate/{id}{newQty}", name="cart_qtyUpdate")
      */
-    public function qtyUpdate($id, $newVal, SessionInterface $session)
+    public function qtyUpdate($id, $newQty, SessionInterface $session)
     {
         // $id =$request->get('id');
         // $newVal =$request->get('newVal');
 
         $orderLine = $session->get('orderLine', []);
-        $orderLine[$id] = $newVal;
+        $orderLine[$id] = $newQty;
+
+        $session->set('orderLine', $orderLine);
+
+        new Response(json_encode($orderLine));
+        // return $this->redirectToRoute('shopping_cart');
     }
 
 

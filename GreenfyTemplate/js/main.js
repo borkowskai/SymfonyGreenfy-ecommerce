@@ -245,7 +245,6 @@
 			}
 		}
         $button.parent().find('input').val(newVal);
-        $.get("/session/qtyUpdate?id=" + $button.parent().find('input').id + "&newVal=" + newVal);
 	});
 
 })(jQuery);

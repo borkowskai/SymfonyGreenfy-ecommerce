@@ -244,7 +244,17 @@
 				newVal = 0;
 			}
 		}
-		$button.parent().find('input').val(newVal);
+        $button.parent().find('input').val(newVal);
+        // console.log("/session/qtyUpdate?id=" + $button.parent().find('input').attr('id') + "&newQty=" + newVal);
+        $.post("/session/qtyUpdate", 
+          {
+            id: $button.parent().find('input').attr('id'),
+            newQty: newVal
+          }
+        , 
+          function(data, status){
+            alert("Data: " + data + "\nStatus: " + status);
+          });
     });
     
     /*------------------------
