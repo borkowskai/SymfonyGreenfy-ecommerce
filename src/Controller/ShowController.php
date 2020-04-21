@@ -26,6 +26,7 @@ class ShowController extends AbstractController
             // // apel a la TVA  => modifier par un service
             // $vat = $entityManager->getRepository(TVA::class)->findAll();
             // $vatValue = $vat[0]->getTVAvalue();
+            // dd($vat);
           
                 $priceExclVAT= $product->getPriceExclVAT();
                 $vatValue = $serviceVat->calculateVAT();
@@ -51,16 +52,16 @@ class ShowController extends AbstractController
             // Renvoie un array d'objets contenant tous les éléments du tableau
             $products = $rep->findAll();
 
-            // apel a la TVA 
-            $tva = $entityManager->getRepository(TVA::class)->findAll();
-            $tvaValue = $tva[0]->getTVAvalue();
+            // // apel a la TVA 
+            // $tva = $entityManager->getRepository(TVA::class)->findAll();
+            // $tvaValue = $tva[0]->getTVAvalue();
 
             
             for ( $i=0; $i<count($products); $i++){
                 $priceExclVAT= $products[$i]->getPriceExclVAT();
-                $priceVAT = $priceExclVAT + ($priceExclVAT*$tvaValue)/100.00;
-                $priceVAT= number_format($priceVAT, 2, '.', '');
-                $products[$i]->setPriceVAT($priceVAT);
+                // $priceVAT = $priceExclVAT + ($priceExclVAT*$tvaValue)/100.00;
+                // $priceVAT= number_format($priceVAT, 2, '.', '');
+                // $products[$i]->setPriceVAT($priceVAT);
             }
             
             // prends Couleurs

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Flower;
 use App\Entity\OrderLine;
+use App\Service\ServiceTVA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/order/add-orderLine", name="add-orderLine")
      */
-    public function addOrderLine(Request $request, ServiceTVA $serviceVat){
+    public function addOrderLine(Request $request){
 
 
         $id =$request->get('id');
@@ -27,8 +28,9 @@ class OrderController extends AbstractController
         $orderLine->setFlower( $flower);
         $orderLine->setQuantity(1);
         $orderLine->setActualPriceExclVAT($flower->getPriceExclVAT());
-        $priceVAT = ($flower->getPriceExclVAT()) + (($flower->getPriceExclVAT())* ($serviceVat))/100.00;
-        $orderLine->setActualPriceVAT($priceVAT);
+       // $vatValue = $serviceVat->calculateVAT();
+       // $priceVAT = ($flower->getPriceExclVAT()) + (($flower->getPriceExclVAT())* ($vatValue))/100.00;
+        // $orderLine->setActualPriceVAT($priceVAT);
 
 
         // // Étape 1 : On « persiste » l'entité
@@ -37,6 +39,6 @@ class OrderController extends AbstractController
         // // Étape 2 : On déclenche l'enregistrement
         $entityManager->flush();
 
-        return $this->render('session/shopping_cart.html.twig');
+        return $this->render('session/check_out.html.twig');
         }
 }
