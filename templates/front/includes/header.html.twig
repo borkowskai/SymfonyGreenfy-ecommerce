@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-lg-7 col-md-7">
                         <div class="advanced-search">
-                            <button type="button" class="category-btn">All Categories</button>
+                            <button type="button" class="category-btn">Search</button>
                             <div class="input-group">
                                 <input type="text" placeholder="What do you need?">
                                 <button type="button"><i class="ti-search"></i></button>
@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="select-button">
                                         <a href="{{ path ('shopping_cart') }}" class="primary-btn view-card">VIEW CARD</a>
-                                        <a href="{{ path ('check-out') }}" class="primary-btn checkout-btn">CHECK OUT</a>
+                                        <a href="{{ path ('check_out') }}" class="primary-btn checkout-btn">CHECK OUT</a>
                                     </div>
                                 </div>
                             </li>
@@ -96,14 +96,9 @@
                         <i class="ti-menu"></i>
                         <span>All departments</span>
                         <ul class="depart-hover">
-                            <li class="active"><a href="{{ path ('index') }}">Women’s Clothing</a></li>
-                            <li><a href="{{ path ('index') }}">Men’s Clothing</a></li>
-                            <li><a href="{{ path ('index') }}">Underwear</a></li>
-                            <li><a href="{{ path ('index') }}">Kid's Clothing</a></li>
-                            <li><a href="{{ path ('index') }}">Brand Fashion</a></li>
-                            <li><a href="{{ path ('index') }}">Accessories/Shoes</a></li>
-                            <li><a href="{{ path ('index') }}">Luxury Brands</a></li>
-                            <li><a href="{{ path ('index') }}">Brand Outdoor Apparel</a></li>
+                            <li class="active"><a href="{{ path ('show-shop') }}">Orchid</a></li>
+                            <li><a href="#">Garden Plants</a></li>
+                            <li><a href="#">Special Occasions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -111,21 +106,19 @@
                     <ul>
                         <li class="active"><a href="{{ path ('index') }}">Home</a></li>
                         <li><a href="{{ path ('show-shop') }}">Shop</a></li>
-                        <li><a href="{{ path ('index') }}">Collection</a>
+                        {# <li><a href="{{ path ('index') }}">Collection</a>
                             <ul class="dropdown">
                                 <li><a href="{{ path ('index') }}">Men's</a></li>
                                 <li><a href="{{ path ('index') }}">Women's</a></li>
                                 <li><a href="{{ path ('index') }}">Kid's</a></li>
                             </ul>
-                        </li>
-                        <li><a href="{{ path ('blog') }}">Blog</a></li>
+                        </li> #}
+                        <li><a href="{{ path ('about') }}">About Us</a></li>
                         <li><a href="{{ path ('contact') }}">Contact</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
-                                <li><a href="{{ path ('blog-details') }}">Blog Details</a></li>
                                 <li><a href="{{ path ('shopping_cart') }}">Shopping Cart</a></li>
-                                <li><a href="{{ path ('check-out') }}">Checkout</a></li>
-                                <li><a href="{{ path ('faq') }}">Faq</a></li>
+                                <li><a href="{{ path ('check_out') }}">Checkout</a></li>
                                 <li><a href="{{ path ('register') }}">Register</a></li>
                                 <li><a href="{{ path ('login') }}">Login</a></li>
                             </ul>

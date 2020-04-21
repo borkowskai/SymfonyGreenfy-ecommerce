@@ -12,33 +12,26 @@ class FrontController extends AbstractController
      * @Route("/", name="index")
      */
     public function index()
-    {
-        return $this->render('front/index.html.twig');
-    }
-    /**
-     * @Route("/blog-details", name="blog-details")
-     */
-    public function blogDetails()
-    {
-        return $this->render('front/blog_details.html.twig');
+    {     
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT product.name, product.photo, product.priceExclVAT  FROM App\Entity\Flower product ORDER BY product.id DESC");
+        $products = $query->setMaxResults(4)->getResult();
+    
+        // notez que findBy renverra toujours un array même s'il trouve 
+        // qu'un objet
+        $vars = ['products' => $products]; 
+    
+        return $this->render('front/index.html.twig', $vars);
     }
 
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/about_us", name="about")
      */
-    public function blog()
+    public function about()
     {
-        return $this->render('front/blog.html.twig');
+        return $this->render('front/about.html.twig');
     }
-
-    /**
-     * @Route("/check-out", name="check-out")
-     */
-    public function checkOut()
-    {
-        return $this->render('front/check_out.html.twig');
-    }
-
 
     /**
      * @Route("/contact", name="contact")
@@ -48,13 +41,7 @@ class FrontController extends AbstractController
         return $this->render('front/contact.html.twig');
     }
 
-    /**
-     * @Route("/faq", name="faq")
-     */
-    public function faq()
-    {
-        return $this->render('front/faq.html.twig');
-    }
+
 
 
     /**
@@ -65,13 +52,6 @@ class FrontController extends AbstractController
         return $this->render('front/login.html.twig');
     }
 
-    /**
-     * @Route("/product", name="product")
-     */
-    public function product()
-    {
-        return $this->render('front/product.html.twig');
-    }
 
     /**
      * @Route("/register", name="register")
@@ -81,20 +61,5 @@ class FrontController extends AbstractController
         return $this->render('front/register.html.twig');
     }
 
-    /**
-     * @Route("/shop", name="shop")
-     */
-    public function shop()
-    {
-        return $this->render('front/shop.html.twig');
-    }
 
-    /**
-     * @Route("/shopping-cart", name="shopping-cart")
-     */
-    
-    public function shoppingCart()
-    {
-        return $this->render('front/shopping_cart.html.twig');
-    }
 }

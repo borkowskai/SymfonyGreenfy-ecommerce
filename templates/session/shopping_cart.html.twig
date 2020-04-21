@@ -33,7 +33,7 @@
                                         <th>Image</th>
                                         <th class="p-name">Product Name</th>
                                         <th>Price</th>
-                                        {# <th>Price VAT</th> #}
+                                        <th>Price VAT</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
                                         <th>Delete</th>
@@ -47,6 +47,7 @@
                                                 <h5>{{ item.product.name }}</h5>
                                             </td>
                                             <td class="p-price first-row">{{ item.product.priceExclVAT }}</td>
+                                            <td class="p-price first-row">{{ item.product.priceVAT }}</td>
                                             <td class="qua-col first-row">
                                                 <div class="quantity">
                                                     <div class="pro-qty">
@@ -85,7 +86,7 @@
                                         <li class="subtotal">Number of items <span>{{ counter }}</span></li>
                                         <li class="cart-total">Total <span>{{ total }}</span></li>
                                     </ul>
-                                    <a href="{{ path('add_orderLine') }}" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                                    <a href="{{ path('check_out') }}" class="proceed-btn">PROCEED TO CHECK OUT</a>
                                 </div>
                             </div>
                         </div>

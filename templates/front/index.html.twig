@@ -7,22 +7,6 @@
     <!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="hero-items owl-carousel">
-            <div class="single-hero-items set-bg" data-setbg="img/banner-1.jpg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <span>Bag,kids</span>
-                            <h1>Black friday</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore</p>
-                            <a href="#" class="primary-btn">Shop Now</a>
-                        </div>
-                    </div>
-                    <div class="off-card">
-                        <h2>Sale <span>50%</span></h2>
-                    </div>
-                </div>
-            </div>
             <div class="single-hero-items set-bg" data-setbg="{{ asset ('assets/img/banner-3.jpg') }}">
                 <div class="container">
                     <div class="row">
@@ -31,7 +15,23 @@
                             <h1>Black friday</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                 incididunt ut labore et dolore</p>
-                            <a href="#" class="primary-btn">Shop Now</a>
+                            <a href="{{ path('show-shop') }}" class="primary-btn">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="off-card">
+                        <h2>Sale <span>50%</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="single-hero-items set-bg" data-setbg="{{ asset ('assets/img/product-1.jpg') }}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <span>Bag,kids</span>
+                            <h1>Black friday</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore</p>
+                            <a href="{{ path('show-shop') }}" class="primary-btn">Shop Now</a>
                         </div>
                     </div>
                     <div class="off-card">
@@ -48,35 +48,35 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="single-banner">
-                        <img src="{{ asset ('assets/img/banner-1.jpg') }}" alt="">
+                    <div class="single-banner"><a href="{{ path ('show-shop') }}">
+                        <img src="{{ asset ('assets/img/banner-1.jpg') }}" alt="Orchid for Office">
                         <div class="inner-text">
-                            <h4>Men’s</h4>
+                            <h4>Orchid for Office</h4>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 <div class="col-lg-3">
-                    <div class="single-banner">
-                        <img src="{{ asset ('assets/img/banner-2.jpg') }}" alt="">
+                    <div class="single-banner"><a href="{{ path ('show-shop') }}">
+                        <img src="{{ asset ('assets/img/banner-2.jpg') }}" alt="Flowers for Weddings">
                         <div class="inner-text">
-                            <h4>Women’s</h4>
+                            <h4>Weddings</h4>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 <div class="col-lg-3">
-                    <div class="single-banner">
+                    <div class="single-banner"><a href="{{ path ('show-shop') }}">>
                         <img src="{{ asset ('assets/img/banner-3.jpg') }}" alt="">
                         <div class="inner-text">
-                            <h4>Kid’s</h4>
+                            <h4>Beautiful Home</h4>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 <div class="col-lg-3">
-                    <div class="single-banner">
+                    <div class="single-banner"><a href="{{ path ('show-shop') }}">
                         <img src="{{ asset ('assets/img/banner-4.jpg') }}" alt="">
                         <div class="inner-text">
-                            <h4>Kid’s</h4>
-                        </div>
+                            <h4>Specials</h4>
+                        </div></a>
                     </div>
                 </div>
             </div>
@@ -97,103 +97,39 @@
                 <div class="col-lg-8 offset-lg-1">
                     <div class="filter-control">
                         <ul>
-                            <li class="active">Nouveautés</li>
-                            <li>Meilleurs Ventes</li>
-                            <li>Promotions</li>
-                            <li>Toujours superbes</li>
+                            <li class="active">New</li>
+                            <li>BestSellers</li>
+                            <li>Sale</li>
+                            <li>Always The Best</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="{{ asset ('assets/img/products/slide-1.jpg') }}" alt="">
-                                <div class="sale">Sale</div>
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
+                        {% for product in products %}
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="{{ asset ('dossierFichiers/' ~ product.photo  ) }}" alt="{{ product.name }}">
+                                    <div class="sale">Sale</div>
+                                    <div class="icon">
+                                        <i class="icon_heart_alt"></i>
+                                    </div>
+                                    <ul>
+                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                    </ul>
                                 </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
+                                <div class="pi-text">
+                                    <a href="#">
+                                        <h5>{{ product.name }}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        Price {{ product.priceExclVAT }}
+                                        <span>{{ product.priceExclVAT * 1.2}} </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="{{ asset ('assets/img/products/slide-2.jpg') }}" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="{{ asset ('assets/img/products/slide-3.jpg') }}" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="{{ asset ('assets/img/products/slide-4.jpg') }}" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                            </div>                           
+                        {% endfor %}
+
                     </div>
                 </div>
             </div>
@@ -240,7 +176,7 @@
 
    
 
-    <!-- Latest Blog Section Begin -->
+    {# <!-- Latest Blog Section Begin -->
     <section class="latest-blog spad">
         <div class="container">
             <div class="row">
@@ -354,7 +290,7 @@
             </div>
         </div>
     </section>
-    <!-- Latest Blog Section End -->
+    <!-- Latest Blog Section End --> #}
 {% endblock %}
 
 {% block javascripts %}
