@@ -10,6 +10,7 @@ use App\Service\ServiceTVA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\FlowerFilterCriteria;
 
 // SELECT: findOneBy
 class ShowController extends AbstractController
@@ -32,6 +33,27 @@ class ShowController extends AbstractController
 
             $vars = ['product' => $product]; 
             return $this->render("/show/product.html.twig",$vars);
+        }
+
+        /**
+         * @Route("/ajax/fetchFilteredProducts", name="ajax-fetchFilteredProducts")
+         */
+        public function fetchFilteredProducts (Request $request) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $rep = $entityManager->getRepository(Flower::class);
+
+            // $products = $rep->findBy(['color' => 2]);
+            $flowerfilterCriteria = new FlowerFilterCriteria();
+            $flowerfilterCriteria
+                ->setLowerPrice(2.5)
+                ->setHigherPrice(4.1)
+                ->addColorId(1)
+                ->addColorId(2)
+                ->addPlantTypeId(1);
+            $products = $rep->findByX($flowerfilterCriteria);
+
+            $vars = ['products' => $products]; 
+            return $this->render("/show/productList.html.twig", $vars);
         }
 
         /**
