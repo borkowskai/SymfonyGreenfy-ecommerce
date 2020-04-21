@@ -17,7 +17,7 @@ class ServiceTVA{
     public function calculateVAT() 
     {
         $vat = $this->entityManager->getRepository(TVA::class)->findOneBy (array('id'=>'1'));
-        $vatValue = $vat->getValue();
+        $vatValue = $vat->getTVAvalue();
         return $vatValue;
     }
 }
