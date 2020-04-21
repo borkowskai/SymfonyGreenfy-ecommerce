@@ -15,22 +15,14 @@ class FrontController extends AbstractController
     {
         return $this->render('front/index.html.twig');
     }
-    /**
-     * @Route("/blog-details", name="blog-details")
-     */
-    public function blogDetails()
-    {
-        return $this->render('front/blog_details.html.twig');
-    }
 
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/about_us", name="about")
      */
-    public function blog()
+    public function about()
     {
-        return $this->render('front/blog.html.twig');
+        return $this->render('front/about.html.twig');
     }
-
 
     /**
      * @Route("/contact", name="contact")
@@ -40,13 +32,7 @@ class FrontController extends AbstractController
         return $this->render('front/contact.html.twig');
     }
 
-    /**
-     * @Route("/faq", name="faq")
-     */
-    public function faq()
-    {
-        return $this->render('front/faq.html.twig');
-    }
+
 
 
     /**

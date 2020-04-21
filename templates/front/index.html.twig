@@ -48,35 +48,35 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="single-banner">
-                        <img src="{{ asset ('assets/img/banner-1.jpg') }}" alt="">
+                    <div class="single-banner"><a href="{{ path ('show-shop') }}">
+                        <img src="{{ asset ('assets/img/banner-1.jpg') }}" alt="Orchid for Office">
                         <div class="inner-text">
-                            <h4>Men’s</h4>
+                            <h4>Orchid for Office</h4>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 <div class="col-lg-3">
-                    <div class="single-banner">
-                        <img src="{{ asset ('assets/img/banner-2.jpg') }}" alt="">
+                    <div class="single-banner"><a href="{{ path ('show-shop') }}">
+                        <img src="{{ asset ('assets/img/banner-2.jpg') }}" alt="Flowers for Weddings">
                         <div class="inner-text">
-                            <h4>Women’s</h4>
+                            <h4>Weddings</h4>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 <div class="col-lg-3">
-                    <div class="single-banner">
+                    <div class="single-banner"><a href="{{ path ('show-shop') }}">>
                         <img src="{{ asset ('assets/img/banner-3.jpg') }}" alt="">
                         <div class="inner-text">
-                            <h4>Kid’s</h4>
+                            <h4>Beautiful Home</h4>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
                 <div class="col-lg-3">
-                    <div class="single-banner">
+                    <div class="single-banner"><a href="{{ path ('show-shop') }}">
                         <img src="{{ asset ('assets/img/banner-4.jpg') }}" alt="">
                         <div class="inner-text">
-                            <h4>Kid’s</h4>
-                        </div>
+                            <h4>Specials</h4>
+                        </div></a>
                     </div>
                 </div>
             </div>
@@ -240,7 +240,7 @@
 
    
 
-    <!-- Latest Blog Section Begin -->
+    {# <!-- Latest Blog Section Begin -->
     <section class="latest-blog spad">
         <div class="container">
             <div class="row">
@@ -354,7 +354,7 @@
             </div>
         </div>
     </section>
-    <!-- Latest Blog Section End -->
+    <!-- Latest Blog Section End --> #}
 {% endblock %}
 
 {% block javascripts %}

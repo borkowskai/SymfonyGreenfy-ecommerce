@@ -183,6 +183,8 @@ class SessionController extends AbstractController
      */
     public function checkOut()
     {
+
+        
         return $this->render('session/check_out.html.twig');
     }
 
