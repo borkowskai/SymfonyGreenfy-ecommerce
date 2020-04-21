@@ -77,9 +77,10 @@
 
                                 <div class="quantity">
                                     <div class="pro-qty">
+                                        {# TODO update quantities  #}
                                         <input type="text" value="1">
                                     </div>
-                                    <a href="#" class="primary-btn pd-cart">Add To Cart</a>
+                                    <a href="{{ path('cart_add', {id : product.id }) }}" data-basket-id={{product.id}} class="primary-btn pd-cart">Add To Cart</a>
                                 </div>
                                 <div class="pd-share">
                                     <div class="pd-social">

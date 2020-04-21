@@ -50,7 +50,10 @@
                                             <td class="qua-col first-row">
                                                 <div class="quantity">
                                                     <div class="pro-qty">
-                                                        <input type="text" value="{{ item.quantity }}">
+                                                    {# TODO update quantity #}
+                                                        {# <a href="{{ path ('cart_qtyUpdate') }}" #}
+                                                            <input id="{{item.product.id}}" type="text" value="{{ item.quantity }}">
+                                                        {# </a> #}
                                                     </div>
                                                 </div>
                                             </td>
@@ -82,7 +85,7 @@
                                         <li class="subtotal">Number of items <span>{{ counter }}</span></li>
                                         <li class="cart-total">Total <span>{{ total }}</span></li>
                                     </ul>
-                                    <a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                                    <a href="{{ path('add_orderLine') }}" class="proceed-btn">PROCEED TO CHECK OUT</a>
                                 </div>
                             </div>
                         </div>
