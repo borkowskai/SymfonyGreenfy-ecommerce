@@ -12,8 +12,17 @@ class FrontController extends AbstractController
      * @Route("/", name="index")
      */
     public function index()
-    {
-        return $this->render('front/index.html.twig');
+    {     
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery("SELECT product.name, product.photo, product.priceExclVAT  FROM App\Entity\Flower product ORDER BY product.id DESC");
+        $products = $query->setMaxResults(4)->getResult();
+    
+        // notez que findBy renverra toujours un array même s'il trouve 
+        // qu'un objet
+        $vars = ['products' => $products]; 
+    
+        return $this->render('front/index.html.twig', $vars);
     }
 
     /**
