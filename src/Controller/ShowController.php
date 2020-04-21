@@ -23,10 +23,6 @@ class ShowController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $product = $entityManager->getRepository(Flower::class)->findOneBy(array("id"=>$id));
 
-            // // apel a la TVA  => modifier par un service
-            // $vat = $entityManager->getRepository(TVA::class)->findAll();
-            // $vatValue = $vat[0]->getTVAvalue();
-            // dd($vat);
           
                 $priceExclVAT= $product->getPriceExclVAT();
                 $vatValue = $serviceVat->calculateVAT();
@@ -41,7 +37,7 @@ class ShowController extends AbstractController
         /**
          * @Route("/show/shop", name="show-shop")
          */
-        public function showShop (){
+        public function showShop (ServiceTVA $serviceVat){
             $entityManager = $this->getDoctrine()->getManager();
             $rep = $entityManager->getRepository(Flower::class);
 
@@ -52,16 +48,13 @@ class ShowController extends AbstractController
             // Renvoie un array d'objets contenant tous les éléments du tableau
             $products = $rep->findAll();
 
-            // // apel a la TVA 
-            // $tva = $entityManager->getRepository(TVA::class)->findAll();
-            // $tvaValue = $tva[0]->getTVAvalue();
-
             
             for ( $i=0; $i<count($products); $i++){
                 $priceExclVAT= $products[$i]->getPriceExclVAT();
-                // $priceVAT = $priceExclVAT + ($priceExclVAT*$tvaValue)/100.00;
-                // $priceVAT= number_format($priceVAT, 2, '.', '');
-                // $products[$i]->setPriceVAT($priceVAT);
+                $vatValue = $serviceVat->calculateVAT();
+                $priceVAT = $priceExclVAT + ($priceExclVAT*$vatValue)/100.00;
+                $priceVAT= number_format($priceVAT, 2, '.', '');
+                $products[$i]->setPriceVAT($priceVAT);
             }
             
             // prends Couleurs
@@ -72,23 +65,6 @@ class ShowController extends AbstractController
             $vars = ['products' => $products, 'colors' => $colors,'sizes' => $sizes]; 
             return $this->render("/show/shop.html.twig",$vars);
         }
-
-        // /**
-        //  * @Route("/client/recherche/traitement/ajax", options={"expose"=true}, name="traitement_rechercheClientAjax")
-        //  */
-        // public function rechercheClientAjax(Request $request)
-        // {
-
-        //     $clientId = $request->request->get('clientId');
-            
-        //         $em = $this->getDoctrine()->getManager();
-        //         $query = $em->createQuery ('SELECT photo,client FROM App\Entity\Photo photo JOIN photo.client client WHERE client.id = :input');
-        //         $query->setParameter('input', $clientId );
-        
-        //         $client = $query->getArrayResult();
-
-        //         return new JsonResponse($client);
-        // }
     
 }
 

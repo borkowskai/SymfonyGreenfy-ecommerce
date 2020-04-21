@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\OrderLine;
 use App\Repository\FlowerRepository;
+use App\Service\ServiceTVA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,7 @@ class SessionController extends AbstractController
     /**
      * @Route("/session/add/{id}", name="cart_add")
      */
-    public function add($id, SessionInterface $session, FlowerRepository $productRepo){
+    public function add($id, SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
         $orderLine = $session->get('orderLine', []);
         if(!empty($orderLine[$id])){
             $orderLine[$id] ++;
@@ -39,18 +40,22 @@ class SessionController extends AbstractController
             $name = $product->getName();
             $photo = $product->getPhoto();
             $priceExclVAT = $product->getPriceExclVAT();
-            //$priceVAT = TODO method service 
+            $vatValue = $serviceVat->calculateVAT();
+            $priceVAT = $priceExclVAT + ($priceExclVAT*$vatValue)/100.00;
+            // $product->setPriceVAT($priceVAT);
 
             $orderLineWithData[] = [
                 'product_name' => $name,
                 'quantity' => $quantity,
                 'photo' => $photo,
-                'priceExclVAT' => $priceExclVAT
+                'priceExclVAT' => $priceExclVAT,
+                'priceVAT' => $priceVAT,
             ];
         }
 
         $orderLineWithData = json_encode($orderLineWithData);
 
+        // exemple json Simple
         // $obj = new \stdClass;
         // $obj->name = 'Iza';
         // $obj->lastname = 'Nowak';
@@ -58,6 +63,8 @@ class SessionController extends AbstractController
 
         // $json = json_encode($obj);
 
+
+        //besoin de reponse a JSON
         return new Response($orderLineWithData);
         //return $this->redirectToRoute('shopping_cart');
     }
@@ -99,7 +106,7 @@ class SessionController extends AbstractController
      * @Route("/all-basket", name="all_basket")
      */
 
-     public function allBasket(SessionInterface $session, FlowerRepository $productRepo){
+     public function allBasket(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
         $orderLine = $session->get('orderLine', []);
 
         $orderLineWithData = [];
@@ -110,13 +117,15 @@ class SessionController extends AbstractController
             $name = $product->getName();
             $photo = $product->getPhoto();
             $priceExclVAT = $product->getPriceExclVAT();
-            //$priceVAT = TODO method service 
+            $vatValue = $serviceVat->calculateVAT();
+            $priceVAT = $priceExclVAT + ($priceExclVAT*$vatValue)/100.00;
 
             $orderLineWithData[] = [
                 'product_name' => $name,
                 'quantity' => $quantity,
                 'photo' => $photo,
-                'priceExclVAT' => $priceExclVAT
+                'priceExclVAT' => $priceExclVAT,
+                'priceVAT' => $priceVAT
                 
             ];
         }
@@ -144,52 +153,38 @@ class SessionController extends AbstractController
      /**
      * @Route("/session/add_orderLine", name="add_orderLine")
      */
-    public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo){
-
+    public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
 
         $orderLine = $session->get('orderLine', []);
-
-        
+      
         $entityManager = $this->getDoctrine()->getManager();
 
         foreach ($orderLine as $id => $quantity) {
             $product = $productRepo->find($id);
-
             // // Création de l'entité OrderLine
             $orderLineBD = new OrderLine();
             $orderLineBD -> setFlower($product);
-            $orderLineBD -> setActualPriceExclVAT ( $product->getPriceExclVAT());
+            $priceExclVAT = $product->getPriceExclVAT();
+            $orderLineBD -> setActualPriceExclVAT ( $priceExclVAT);
             $orderLineBD -> setQuantity($quantity);
-            //$priceVAT = TODO method service 
-
+            $vatValue = $serviceVat->calculateVAT();
+            $priceVAT =   $priceExclVAT + ( $priceExclVAT*$vatValue)/100.00;
+            $orderLineBD -> setActualPriceVAT ($priceVAT);
             // // Étape 1 : On « persiste » l'entité
             $entityManager->persist($orderLineBD);
-
             // // Étape 2 : On déclenche l'enregistrement
-            
-
             }
+        $entityManager->flush();
+        return $this->render('session/check_out.html.twig');
+    }
 
-            $entityManager->flush();
-            return $this->render('session/check_out.html.twig');
-        }
-
-    //  /**
-    //  * @Route("/session/qtyUpdate/{id}{quantity}", name="cart_qtyUpdate")
-    //  */
-    // public function qtyUpdate($id, $quantity, SessionInterface $session, FlowerRepository $productRepo){
-    //     $orderLine = $session->get('orderLine', []);
-        
-    //     foreach ($orderLine as $id => $quantity) {
-    //         $orderLineWithData[] = [
-    //             'product' => $productRepo->find($id),
-    //             'quantity' => $quantity
-    //         ];
-    //     }
-    //     $session->set('orderLine', $orderLine);
-
-    //     return $this->redirectToRoute('shopping_cart');
-    // }
+    /**
+     * @Route("/session/check_out", name="check_out")
+     */
+    public function checkOut()
+    {
+        return $this->render('session/check_out.html.twig');
+    }
 
 
 
