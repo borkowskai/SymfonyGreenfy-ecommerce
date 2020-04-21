@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\OrderLine;
 use App\Repository\FlowerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+
 
 
 
@@ -103,8 +104,8 @@ class SessionController extends AbstractController
 
         $orderLineWithData = [];
 
-        foreach ($orderLine as $key => $quantity) {
-            $product = $productRepo->find($key);
+        foreach ($orderLine as $id => $quantity) {
+            $product = $productRepo->find($id);
 
             $name = $product->getName();
             $photo = $product->getPhoto();
@@ -146,23 +147,31 @@ class SessionController extends AbstractController
     public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo){
 
 
-    //     $orderLine = $session->get('orderLine', []);
+        $orderLine = $session->get('orderLine', []);
+
         
-    //     $entityManager = $this->getDoctrine()->getManager();
-    //     foreach ($orderLine as $id => $quantity) {
-    //         $entityManager->persist($orderLine);
+        $entityManager = $this->getDoctrine()->getManager();
 
-    //     }
+        foreach ($orderLine as $id => $quantity) {
+            $product = $productRepo->find($id);
 
+            // // Création de l'entité OrderLine
+            $orderLineBD = new OrderLine();
+            $orderLineBD -> setFlower($product);
+            $orderLineBD -> setActualPriceExclVAT ( $product->getPriceExclVAT());
+            $orderLineBD -> setQuantity($quantity);
+            //$priceVAT = TODO method service 
 
+            // // Étape 1 : On « persiste » l'entité
+            $entityManager->persist($orderLineBD);
 
+            // // Étape 2 : On déclenche l'enregistrement
+            
 
-    //     // // Étape 1 : On « persiste » l'entité
+            }
 
-    //     // // Étape 2 : On déclenche l'enregistrement
-    //     $entityManager->flush();
-
-    //     return $this->render('session/check_out.html.twig');
+            $entityManager->flush();
+            return $this->render('session/check_out.html.twig');
         }
 
     //  /**

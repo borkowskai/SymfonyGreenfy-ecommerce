@@ -9,7 +9,7 @@ class FrontController extends AbstractController
 {
 
     /**
-     * @Route("/index", name="index")
+     * @Route("/", name="index")
      */
     public function index()
     {
