@@ -42,14 +42,24 @@ class ShowController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $rep = $entityManager->getRepository(Flower::class);
 
-            // $products = $rep->findBy(['color' => 2]);
             $flowerfilterCriteria = new FlowerFilterCriteria();
-            $flowerfilterCriteria
-                ->setLowerPrice(2.5)
-                ->setHigherPrice(4.1)
-                ->addColorId(1)
-                ->addColorId(2)
-                ->addPlantTypeId(1);
+
+            $sizes = $request->request->get('sizes', []);
+            foreach ($sizes as $size) { 
+                $flowerfilterCriteria->addPlantTypeId($size);
+            }
+
+            $minamount = $request->request->get('minamount');
+            $flowerfilterCriteria->setLowerPrice($minamount);
+
+            $maxamount = $request->request->get('maxamount');
+            $flowerfilterCriteria->setHigherPrice($maxamount);
+
+            $colors = $request->request->get('colors', []);
+            foreach ($colors as $color) { 
+                $flowerfilterCriteria->addColorId($color);
+            }
+
             $products = $rep->findByX($flowerfilterCriteria);
 
             $vars = ['products' => $products]; 
