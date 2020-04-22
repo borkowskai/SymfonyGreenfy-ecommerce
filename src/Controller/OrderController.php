@@ -7,6 +7,7 @@ use App\Entity\OrderLine;
 use App\Service\ServiceTVA;
 use App\Repository\FlowerRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +45,9 @@ class OrderController extends AbstractController
     //     return $this->render('session/check_out.html.twig');
     //     }
 
+    /**
+     * @Route("/order/add_orderLine", name="add_orderLine")
+     */
 
     public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
 
@@ -67,9 +71,20 @@ class OrderController extends AbstractController
             // // Étape 2 : On déclenche l'enregistrement
             }
         $entityManager->flush();
-        return $this->render('order/check_out.html.twig');
+       //return new Response("order added"); 
+       return $this->redirectToRoute('check_out');
     }
 
+    /**
+     * @Route("/order/check_out", name="check_out")
+     */
+    public function checkOut()
+    {
+        return $this->render('order/check_out.html.twig');
+    }
+    /**
+     * @Route("/order/add_address", name="add_address")
+     */
     public function addAddress(Request $request)
     {
 
