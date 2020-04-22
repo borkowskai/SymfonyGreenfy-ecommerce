@@ -15,7 +15,7 @@ class FrontController extends AbstractController
     {     
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery("SELECT product.name, product.photo, product.priceExclVAT  FROM App\Entity\Flower product ORDER BY product.id DESC");
+        $query = $em->createQuery("SELECT product.name, product.photo, product.priceExclVAT, product.id FROM App\Entity\Flower product ORDER BY product.id DESC");
         $products = $query->setMaxResults(4)->getResult();
     
         // notez que findBy renverra toujours un array même s'il trouve 
@@ -45,7 +45,7 @@ class FrontController extends AbstractController
 
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/login_template", name="login_template")
      */
     public function login()
     {
