@@ -208,7 +208,7 @@ class SessionController extends AbstractController
      /**
      * @Route("/session/qtyUpdate/{id}/{newQty}", name="cart_qtyUpdate")
      */
-    public function qtyUpdate($id, $newQty, SessionInterface $session)
+    public function qtyUpdate($id, $newQty, SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat)
     {
         // $id =$request->get('id');
         // $newVal =$request->get('newVal');
@@ -218,7 +218,9 @@ class SessionController extends AbstractController
 
         $session->set('orderLine', $orderLine);
 
-        return new Response(json_encode($orderLine));
+
+        return $this->allBasket($session, $productRepo, $serviceVat);
+        // return new Response(json_encode($orderLine));
         // return $this->redirectToRoute('shopping_cart');
     }
 
