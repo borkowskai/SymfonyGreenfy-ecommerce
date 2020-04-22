@@ -46,20 +46,13 @@ class FrontController extends AbstractController
     }
 
 
-
-
     /**
-     * @Route("/login_template", name="login_template")
+     * @Route("/register", name="register")
      */
-    public function login()
+    public function register()
     {
-        return $this->render('front/login.html.twig');
+        return $this->render('front/register.html.twig');
     }
-
-
-    // /**
-    //  * @Route("/register", name="register")
-    //  */
     // public function register(Request $request, UserPasswordEncoderInterface $password_encoder)
     // {
 
