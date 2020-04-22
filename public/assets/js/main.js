@@ -245,15 +245,11 @@
 			}
 		}
         $button.parent().find('input').val(newVal);
-        // console.log("/session/qtyUpdate?id=" + $button.parent().find('input').attr('id') + "&newQty=" + newVal);
-        $.post("/session/qtyUpdate", 
-          {
-            id: $button.parent().find('input').attr('id'),
-            newQty: newVal
-          }
-        , 
+
+        console.log("/session/qtyUpdate/" + $button.parent().find('input').attr('id') + "/" + newVal);
+        $.get("/session/qtyUpdate/" + $button.parent().find('input').attr('id') + "/" + newVal, 
           function(data, status){
-            alert("Data: " + data + "\nStatus: " + status);
+            console.log("Data: " + data + "\nStatus: " + status);
           });
     });
     
