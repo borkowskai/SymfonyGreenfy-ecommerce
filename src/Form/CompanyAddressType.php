@@ -19,16 +19,10 @@ class CompanyAddressType extends AbstractType {
                 ->add('street', TextType::class)
                 ->add('streetNumber', IntegerType::class)
                 ->add('appartNumber', TextType::class)
-                ->add('city', TextType::class)
                 ->add('zipcode', TextType::class)
+                ->add('city', TextType::class)
                 ->add('country', TextType::class)
-                ->add('phone', TextType::class)
-                ->add('client', EntityType::class,[
-                    'class' => Client::class, 
-                    'query_builder' => function(ClientRepository $er){
-                        return $er->createQueryBuilder('generic')->orderBy('generic.name');
-                    },
-                ]);
+                ->add('phone', TextType::class);
     }
     
 }

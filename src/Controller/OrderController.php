@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Flower;
 use App\Entity\OrderLine;
 use App\Service\ServiceTVA;
+use App\Entity\CompanyAddress;
+use App\Form\CompanyAddressType;
 use App\Repository\FlowerRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -78,14 +80,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/order/check_out", name="check_out")
      */
-    public function checkOut()
-    {
-        return $this->render('order/check_out.html.twig');
-    }
-    /**
-     * @Route("/order/add_address", name="add_address")
-     */
-    public function addAddress(Request $request)
+    public function checkOut(Request $request)
     {
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -95,7 +90,7 @@ class OrderController extends AbstractController
             CompanyAddressType::class,
             $address,
             [
-                'action' => $this->generateUrl('add_address'),
+                'action' => $this->generateUrl('check_out'),
                 'method' => 'POST'
             ]
         );
@@ -115,7 +110,7 @@ class OrderController extends AbstractController
             }
         else{
             return $this->render(
-                '/admin/add_product.html.twig',
+                '/order/check_out.html.twig',
                 ['form' => $form->createView()]
             );
         }
