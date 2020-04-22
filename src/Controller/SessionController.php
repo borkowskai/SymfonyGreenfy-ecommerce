@@ -133,7 +133,7 @@ class SessionController extends AbstractController
         $orderLineWithData = json_encode($orderLineWithData);
 
         return new Response($orderLineWithData);
-     }
+    }
 
 
     /**
@@ -150,43 +150,54 @@ class SessionController extends AbstractController
     }
 
 
-     /**
-     * @Route("/session/add_orderLine", name="add_orderLine")
-     */
-    public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
+    //  /**
+    //  * @Route("/session/add_orderLine", name="add_orderLine")
+    //  */
+    // public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
 
-        $orderLine = $session->get('orderLine', []);
+    //     $orderLine = $session->get('orderLine', []);
       
-        $entityManager = $this->getDoctrine()->getManager();
+    //     $entityManager = $this->getDoctrine()->getManager();
 
-        foreach ($orderLine as $id => $quantity) {
-            $product = $productRepo->find($id);
-            // // Création de l'entité OrderLine
-            $orderLineBD = new OrderLine();
-            $orderLineBD -> setFlower($product);
-            $priceExclVAT = $product->getPriceExclVAT();
-            $orderLineBD -> setActualPriceExclVAT ( $priceExclVAT);
-            $orderLineBD -> setQuantity($quantity);
-            $vatValue = $serviceVat->calculateVAT();
-            $priceVAT =   $priceExclVAT + ( $priceExclVAT*$vatValue)/100.00;
-            $orderLineBD -> setActualPriceVAT ($priceVAT);
-            // // Étape 1 : On « persiste » l'entité
-            $entityManager->persist($orderLineBD);
-            // // Étape 2 : On déclenche l'enregistrement
-            }
-        $entityManager->flush();
-        return $this->render('session/check_out.html.twig');
-    }
+    //     foreach ($orderLine as $id => $quantity) {
+    //         $product = $productRepo->find($id);
+    //         // // Création de l'entité OrderLine
+    //         $orderLineBD = new OrderLine();
+    //         $orderLineBD -> setFlower($product);
+    //         $priceExclVAT = $product->getPriceExclVAT();
+    //         $orderLineBD -> setActualPriceExclVAT ( $priceExclVAT);
+    //         $orderLineBD -> setQuantity($quantity);
+    //         $vatValue = $serviceVat->calculateVAT();
+    //         $priceVAT =   $priceExclVAT + ( $priceExclVAT*$vatValue)/100.00;
+    //         $orderLineBD -> setActualPriceVAT ($priceVAT);
+    //         // // Étape 1 : On « persiste » l'entité
+    //         $entityManager->persist($orderLineBD);
+    //         // // Étape 2 : On déclenche l'enregistrement
+    //         }
+    //     $entityManager->flush();
+    //     return $this->render('session/check_out.html.twig');
+    // }
+    //     $entityManager = $this->getDoctrine()->getManager();
 
-    /**
-     * @Route("/session/check_out", name="check_out")
-     */
-    public function checkOut()
-    {
+    //     foreach ($orderLine as $id => $quantity) {
+    //         $product = $productRepo->find($id);
+    //         // // Création de l'entité OrderLine
+    //         $orderLineBD = new OrderLine();
+    //         $orderLineBD -> setFlower($product);
+    //         $priceExclVAT = $product->getPriceExclVAT();
+    //         $orderLineBD -> setActualPriceExclVAT ( $priceExclVAT);
+    //         $orderLineBD -> setQuantity($quantity);
+    //         $vatValue = $serviceVat->calculateVAT();
+    //         $priceVAT =   $priceExclVAT + ( $priceExclVAT*$vatValue)/100.00;
+    //         $orderLineBD -> setActualPriceVAT ($priceVAT);
+    //         // // Étape 1 : On « persiste » l'entité
+    //         $entityManager->persist($orderLineBD);
+    //         // // Étape 2 : On déclenche l'enregistrement
+    //         }
+    //     $entityManager->flush();
+    //     return $this->render('order/check_out.html.twig');
+    // }
 
-        
-        return $this->render('session/check_out.html.twig');
-    }
 
 
 
