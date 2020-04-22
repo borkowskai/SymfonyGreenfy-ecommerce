@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistretionUserType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -49,57 +50,53 @@ class FrontController extends AbstractController
     /**
      * @Route("/register", name="register")
      */
-    public function register()
+    public function register(Request $request, UserPasswordEncoderInterface $password_encoder)
     {
+
+        // 1. Création d'une entité vide
+        $user= new User();
+        // 2. Création du formulaire du type souhaité
+        $registerForm = $this->createForm(
+            RegistretionUserType::class,
+            $user,
+            [
+                'action' => $this->generateUrl('register'),
+                'method' => 'POST'
+            ]
+        );
+
+        // 3. Analyse de l'objet Request
+        $registerForm->handleRequest($request);
+
+        // 4. Vérification: on vient d'un submit ou pas?
+        // si oui, on traite le formulaire et on remplit l'entité
+        if ($registerForm->isSubmitted() && $registerForm->isValid()) {
+        // Remplissage de l'entité avec les données du formulaire
+        //   $livre = $formulaireLivre->getData(); // pas besoin, le submit remplit l'entite
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user->setFirstName($request->request->get('registretion_user')['firstName']);
+            $user->setLastName($request->request->get('registretion_user')['lastName']);
+            $user->setEmail($request->request->get('registretion_user')['email']);
+            $password = $password_encoder->encodePassword($user, $request->request->get('registretion_user')['password']['first']);
+            $user->setPassword($password);
+            $user->setRoles(['ROLE_USER']);
+
+            $entityManager->persist($user);
+            // écrire l'objet dans la BD
+            $entityManager->flush();
+
+            return new Response("User added"); 
+            }
+        else{
+            return $this->render(
+                '/front/register.html.twig',
+                ['registerForm' => $registerForm->createView()]
+            );
+        }
         return $this->render('front/register.html.twig');
     }
-    // public function register(Request $request, UserPasswordEncoderInterface $password_encoder)
-    // {
-
-    //     // 1. Création d'une entité vide
-    //     $user= new User();
-    //     // 2. Création du formulaire du type souhaité
-    //     $registerForm = $this->createForm(
-    //         RegistretionUserType::class,
-    //         $user,
-    //         [
-    //             'action' => $this->generateUrl('register'),
-    //             'method' => 'POST'
-    //         ]
-    //     );
-
-    //     // 3. Analyse de l'objet Request
-    //     $registerForm->handleRequest($request);
-
-    //     // 4. Vérification: on vient d'un submit ou pas?
-    //     // si oui, on traite le formulaire et on remplit l'entité
-    //     if ($registerForm->isSubmitted() && $registerForm->isValid()) {
-    //     // Remplissage de l'entité avec les données du formulaire
-    //     //   $livre = $formulaireLivre->getData(); // pas besoin, le submit remplit l'entite
-
-    //         $entityManager = $this->getDoctrine()->getManager();
-
-    //         $user->setFirstName($request->request->get('firstname'));
-    //         $user->setLastName($request->request->get('last_name'));
-    //         $user->setEmail($request->request->get('email'));
-    //         $password = $password_encoder->encodePassword($user, $request->request->get('password')['first']);
-    //         $user->setPassword($password);
-    //         $user->setRoles(['ROLE_USER']);
-
-    //         $entityManager->persist($user);
-    //         // écrire l'objet dans la BD
-    //         $entityManager->flush();
-
-    //         return new Response("User added"); 
-    //         }
-    //     else{
-    //         return $this->render(
-    //             '/front/register.html.twig',
-    //             ['registerForm' => $registerForm->createView()]
-    //         );
-    //     }
-    //     return $this->render('front/register.html.twig');
-    // }
 
 
 }
