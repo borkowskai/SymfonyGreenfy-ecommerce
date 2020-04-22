@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistretionUserType;
+use App\Security\FormLoginAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -87,15 +89,16 @@ class FrontController extends AbstractController
             // écrire l'objet dans la BD
             $entityManager->flush();
 
-            return new Response("User added"); 
-            }
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('app_login');
+        }
         else{
             return $this->render(
                 '/front/register.html.twig',
                 ['registerForm' => $registerForm->createView()]
             );
         }
-        return $this->render('front/register.html.twig');
     }
 
 
