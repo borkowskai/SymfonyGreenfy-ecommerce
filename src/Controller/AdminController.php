@@ -14,7 +14,7 @@ class AdminController extends AbstractController
 {
 
     /**
-     * @Route("/admin/add-product", name="add_product")
+     * @Route("/admin/add_product", name="add_product")
      */
     public function addProduct(Request $request)
     {

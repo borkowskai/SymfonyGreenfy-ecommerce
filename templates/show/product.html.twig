@@ -155,8 +155,9 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="p-catagory">Add To Cart</td>
+                                                <td class="p-catagory"><a href="{{ path('cart_add', {id : product.id }) }}" data-basket-id={{product.id}}>Add To Cart</a></td>
                                                 <td>
+                                                {# TODO update quantity #}
                                                     <div class="cart-add">+ add to cart</div>
                                                 </td>
                                             </tr>

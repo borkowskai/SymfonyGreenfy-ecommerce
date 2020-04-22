@@ -175,7 +175,7 @@ class SessionController extends AbstractController
             // // Étape 2 : On déclenche l'enregistrement
             }
         $entityManager->flush();
-        return $this->render('session/check_out.html.twig');
+        return $this->render('order/check_out.html.twig');
     }
 
     /**
