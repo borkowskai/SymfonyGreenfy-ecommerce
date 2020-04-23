@@ -30,9 +30,9 @@
                             {# -------- show size/cathegories  ----------#}
                             {% for size in sizes %}
                                 <div class="bc-item">
-                                    <label for="bc-'{{size.name}}'">
+                                    <label for="bc-{{size.name}}">
                                         {{ size.name }}
-                                        <input type="checkbox" id="bc-{{size.name}}">
+                                        <input type="checkbox" id="bc-{{size.name}}" name="bc-size" value="{{size.id}}">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -50,21 +50,22 @@
                                 </div>
                             </div>
                             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                data-min="33" data-max="98">
+                                data-min="1" data-max="98">
                                 <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                             </div>
                         </div>
-                        <a href="#" class="filter-btn">Filtres</a>
+                        <a id="filter-btn" href="#" class="filter-btn">Filtres</a>
                     </div>
                     <div class="filter-widget">
                         <h4 class="fw-title">Color</h4>
                         <div class="fw-color-choose">
                             {# -------- show colors  ----------#}
                             {% for color in colors %}
-                                <div class="cs-item">
-                                    <input type="radio" id="cs-{{color.name}}" class="colors">
+                                {# <div class="cs-item"> #}
+                                <div>
+                                    <input type="radio" id="cs-{{color.name}}" class="colors" name="cs-color" value="{{color.id}}">
                                     <label class="cs-{{color.name}}" for="cs-{{color.name}}">{{ color.name|lower }}</label>
                                 </div>
 
@@ -94,47 +95,10 @@
                         </div>
                     </div>
                     <div class="product-list">
-                        <div class="row">
+                        <div id="product-list-row" class="row">
                             {# ----------- show products -------------#}
-                            {% for product in products %}
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="product-item">
-                                        <div class="pi-pic">
-                                        {# concat concatenation #}
-                                            <img src="{{ asset ('dossierFichiers/' ~ product.photo  ) }}" alt="{{ product.name }}">
-                                            {# <div class="sale pp-sale">Sale</div> #}
-                                            <div class="icon">
-                                                <i class="icon_heart_alt wish" id="icon_heart_alt_wish"></i>
-                                            </div>
-                                            <ul>
-                                            {# <li class="w-icon active basket"><a href="#"><i class="icon_bag_alt"></i></a></li> #}
-                                                <li class="w-icon active basket"><a href="{{ path('cart_add', {id : product.id }) }}" data-basket-id={{product.id}}><i class="icon_bag_alt"></i></a></li>
-                                                <li class="quick-view"><a href="{{ path ('show-product', { id : product.id }) }}">+ Quick View</a></li>
-                                                {# <li class="w-icon"><a href="{{ path('cart_add', {id : product.id }) }}" data-basket-id={{product.id}}><i class="fa fa-random"></i></a></li> #}
-                                            </ul>
-                                        </div>
-                                        <div class="pi-text">
-                                        {# TODO #}
-                                            <div class="catagory-name"> {{ product.getPlantType.GetName }} </div>
-                                            <a href="#">
-                                                <h5>{{ product.name }}</h5>
-                                            </a>
-                                            <div class="product-price">
-                                                Price {{ product.priceExclVAT }}
-                                                {# <span>{{ product.priceExclVAT * 1.2}} </span> #}
-                                            </div>
-                                            <div class="product-price">
-                                                Price VAT {{ product.priceVAT }}
-                                                {# <span>{{ product.priceVAT * 1.2}}</span> #}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                            {% include "./show/productList.html.twig" %}
                             {# ----------- show products  end-------------#}
-
-
-
                         </div>
                     </div>
                     <div class="loading-more">
