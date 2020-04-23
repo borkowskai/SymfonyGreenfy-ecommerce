@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\OrderLine;
 use App\Repository\FlowerRepository;
 use App\Service\ServiceTVA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -148,39 +147,7 @@ class SessionController extends AbstractController
 
         return $this->redirectToRoute('shopping_cart');
     }
-
-
-    //  /**
-    //  * @Route("/session/add_orderLine", name="add_orderLine")
-    //  */
-    // public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
-
-    //     $orderLine = $session->get('orderLine', []);
-      
-    //     $entityManager = $this->getDoctrine()->getManager();
-
-    //     foreach ($orderLine as $id => $quantity) {
-    //         $product = $productRepo->find($id);
-    //         // // Création de l'entité OrderLine
-    //         $orderLineBD = new OrderLine();
-    //         $orderLineBD -> setFlower($product);
-    //         $priceExclVAT = $product->getPriceExclVAT();
-    //         $orderLineBD -> setActualPriceExclVAT ( $priceExclVAT);
-    //         $orderLineBD -> setQuantity($quantity);
-    //         $vatValue = $serviceVat->calculateVAT();
-    //         $priceVAT =   $priceExclVAT + ( $priceExclVAT*$vatValue)/100.00;
-    //         $orderLineBD -> setActualPriceVAT ($priceVAT);
-    //         // // Étape 1 : On « persiste » l'entité
-    //         $entityManager->persist($orderLineBD);
-    //         // // Étape 2 : On déclenche l'enregistrement
-    //         }
-    //     $entityManager->flush();
-    //     return $this->render('session/check_out.html.twig');
-    // }
-
-
-
-   
+       
      /**
      * @Route("/session/qtyUpdate/{id}/{newQty}", name="cart_qtyUpdate")
      */
