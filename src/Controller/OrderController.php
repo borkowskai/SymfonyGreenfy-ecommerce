@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Order;
 use App\Entity\Flower;
 use App\Entity\OrderLine;
+use App\Entity\PaymentType;
 use App\Service\ServiceTVA;
 use App\Entity\CompanyAddress;
 use App\Form\CompanyAddressType;
 use App\Repository\FlowerRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends AbstractController
 {
@@ -48,7 +50,19 @@ class OrderController extends AbstractController
             $entityManager->persist($address);
             $order->setDeliveryAddress($address);
             // $order->addListOfOrderLine(addOrderLine);
+
+
+            // $date = new DateTime('@'.strtotime('now'));
+            $date = new DateTime();
+            $uniqueNumber = md5(uniqid());
+            $order->setNumOrder($uniqueNumber);
+            $order->setDateOrder($date);
+            $payment= new PaymentType();
+            $payment->setPaymentType('paypal');
+            $entityManager->persist($payment);
+            $order->setPayment($payment);
             $entityManager->persist($order);
+            
             $entityManager->flush();
     
             return Response('order added');
