@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use DateTime;
-use App\Entity\Order;
-use App\Entity\Flower;
 use App\Entity\OrderLine;
 use App\Entity\PaymentType;
 use App\Service\ServiceTVA;
@@ -13,19 +11,24 @@ use App\Entity\CustomerOrder;
 use App\Form\CompanyAddressType;
 use App\Repository\FlowerRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends AbstractController
 {
+    /**
+     * @Route("/order/check_out", name="check_out")
+     */
+    public function checkOut(Request $request, SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat)
+    {
+        $order = new CustomerOrder();
 
-    public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
+        $entityManager = $this->getDoctrine()->getManager();
 
+        // ------------------- adding orderLines ---------------------
         $orderLine = $session->get('orderLine', []);
-      
-        $ordersList = [];
 
         foreach ($orderLine as $id => $quantity) {
             $product = $productRepo->find($id);
@@ -38,22 +41,15 @@ class OrderController extends AbstractController
             $vatValue = $serviceVat->calculateVAT();
             $priceVAT =   $priceExclVAT + ( $priceExclVAT*$vatValue)/100.00;
             $orderLineBD -> setActualPriceVAT ($priceVAT);
-            $ordersList += $orderLineBD ;
+
+            $entityManager->persist($orderLineBD);
+            $order->addListOfOrderLine($orderLineBD);
             }
-
-        return $ordersList;
-    }
-
-    /**
-     * @Route("/order/check_out", name="check_out")
-     */
-    public function checkOut(Request $request)
-    {
-        $order = new CustomerOrder();
 
 
         // ------------------- adding address ---------------------
         $address = new CompanyAddress();
+
         // 2. Création du formulaire du type souhaité
         $form = $this->createForm(
             CompanyAddressType::class,
@@ -69,13 +65,9 @@ class OrderController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
         // ------------------- openning DB ---------------------
-            $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($address);
             $order->setDeliveryCustomerAddress($address);
-            //$listOfOrders= [];
-            //$listOfOrders = addOrderLine();
-            //$order->addListOfOrderLine($listOfOrders);
 
 
             $date = new DateTime();
@@ -90,7 +82,7 @@ class OrderController extends AbstractController
             
             $entityManager->flush();
     
-            return Response('order added');
+            return Response('bravo');
         }
         else{
             return $this->render(
