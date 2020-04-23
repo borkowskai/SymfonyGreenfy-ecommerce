@@ -64,11 +64,6 @@ class CompanyAddress
     private $isDelivery;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="addresses")
-     */
-    private $client;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="deliveryAddress")
      */
     private $ListOfOrders;
@@ -194,18 +189,6 @@ class CompanyAddress
     public function setIsDelivery(?bool $isDelivery): self
     {
         $this->isDelivery = $isDelivery;
-
-        return $this;
-    }
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
 
         return $this;
     }

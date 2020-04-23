@@ -48,10 +48,6 @@ class Client
      */
     private $ListOfOrders;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CompanyAddress", mappedBy="client")
-     */
-    private $addresses;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Wish", mappedBy="client")
@@ -66,7 +62,6 @@ class Client
     public function __construct()
     {
         $this->ListOfOrders = new ArrayCollection();
-        $this->addresses = new ArrayCollection();
         $this->ListOfWishes = new ArrayCollection();
         $this->listOfCustomerOrders = new ArrayCollection();
     }
@@ -167,36 +162,6 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection|CompanyAddress[]
-     */
-    public function getAddresses(): Collection
-    {
-        return $this->addresses;
-    }
-
-    public function addAddress(CompanyAddress $address): self
-    {
-        if (!$this->addresses->contains($address)) {
-            $this->addresses[] = $address;
-            $address->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAddress(CompanyAddress $address): self
-    {
-        if ($this->addresses->contains($address)) {
-            $this->addresses->removeElement($address);
-            // set the owning side to null (unless already changed)
-            if ($address->getClient() === $this) {
-                $address->setClient(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Wish[]
