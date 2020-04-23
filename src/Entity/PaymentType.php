@@ -33,9 +33,15 @@ class PaymentType
      */
     private $ListOfOrders;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomerOrder", mappedBy="paymentType")
+     */
+    private $listOfCustomerOrders;
+
     public function __construct()
     {
         $this->ListOfOrders = new ArrayCollection();
+        $this->listOfCustomerOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,37 @@ class PaymentType
             // set the owning side to null (unless already changed)
             if ($listOfOrder->getPayment() === $this) {
                 $listOfOrder->setPayment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CustomerOrder[]
+     */
+    public function getListOfCustomerOrders(): Collection
+    {
+        return $this->listOfCustomerOrders;
+    }
+
+    public function addListOfCustomerOrder(CustomerOrder $listOfCustomerOrder): self
+    {
+        if (!$this->listOfCustomerOrders->contains($listOfCustomerOrder)) {
+            $this->listOfCustomerOrders[] = $listOfCustomerOrder;
+            $listOfCustomerOrder->setPaymentType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListOfCustomerOrder(CustomerOrder $listOfCustomerOrder): self
+    {
+        if ($this->listOfCustomerOrders->contains($listOfCustomerOrder)) {
+            $this->listOfCustomerOrders->removeElement($listOfCustomerOrder);
+            // set the owning side to null (unless already changed)
+            if ($listOfCustomerOrder->getPaymentType() === $this) {
+                $listOfCustomerOrder->setPaymentType(null);
             }
         }
 

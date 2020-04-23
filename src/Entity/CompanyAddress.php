@@ -73,9 +73,15 @@ class CompanyAddress
      */
     private $ListOfOrders;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomerOrder", mappedBy="deliveryCustomerAddress")
+     */
+    private $listOfCustomerOrders;
+
     public function __construct()
     {
         $this->ListOfOrders = new ArrayCollection();
+        $this->listOfCustomerOrders = new ArrayCollection();
     }
 
 
@@ -229,6 +235,37 @@ class CompanyAddress
             // set the owning side to null (unless already changed)
             if ($listOfOrder->getDeliveryAddress() === $this) {
                 $listOfOrder->setDeliveryAddress(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CustomerOrder[]
+     */
+    public function getListOfCustomerOrders(): Collection
+    {
+        return $this->listOfCustomerOrders;
+    }
+
+    public function addListOfCustomerOrder(CustomerOrder $listOfCustomerOrder): self
+    {
+        if (!$this->listOfCustomerOrders->contains($listOfCustomerOrder)) {
+            $this->listOfCustomerOrders[] = $listOfCustomerOrder;
+            $listOfCustomerOrder->setDeliveryCustomerAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListOfCustomerOrder(CustomerOrder $listOfCustomerOrder): self
+    {
+        if ($this->listOfCustomerOrders->contains($listOfCustomerOrder)) {
+            $this->listOfCustomerOrders->removeElement($listOfCustomerOrder);
+            // set the owning side to null (unless already changed)
+            if ($listOfCustomerOrder->getDeliveryCustomerAddress() === $this) {
+                $listOfCustomerOrder->setDeliveryCustomerAddress(null);
             }
         }
 

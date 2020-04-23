@@ -58,11 +58,17 @@ class Client
      */
     private $ListOfWishes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomerOrder", mappedBy="client")
+     */
+    private $listOfCustomerOrders;
+
     public function __construct()
     {
         $this->ListOfOrders = new ArrayCollection();
         $this->addresses = new ArrayCollection();
         $this->ListOfWishes = new ArrayCollection();
+        $this->listOfCustomerOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -217,6 +223,37 @@ class Client
             // set the owning side to null (unless already changed)
             if ($listOfWish->getClient() === $this) {
                 $listOfWish->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CustomerOrder[]
+     */
+    public function getListOfCustomerOrders(): Collection
+    {
+        return $this->listOfCustomerOrders;
+    }
+
+    public function addListOfCustomerOrder(CustomerOrder $listOfCustomerOrder): self
+    {
+        if (!$this->listOfCustomerOrders->contains($listOfCustomerOrder)) {
+            $this->listOfCustomerOrders[] = $listOfCustomerOrder;
+            $listOfCustomerOrder->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListOfCustomerOrder(CustomerOrder $listOfCustomerOrder): self
+    {
+        if ($this->listOfCustomerOrders->contains($listOfCustomerOrder)) {
+            $this->listOfCustomerOrders->removeElement($listOfCustomerOrder);
+            // set the owning side to null (unless already changed)
+            if ($listOfCustomerOrder->getClient() === $this) {
+                $listOfCustomerOrder->setClient(null);
             }
         }
 

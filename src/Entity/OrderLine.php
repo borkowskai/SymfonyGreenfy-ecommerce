@@ -41,6 +41,11 @@ class OrderLine
      */
     private $flower;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CustomerOrder", inversedBy="listOfOrderLines")
+     */
+    private $customerOrder;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +107,18 @@ class OrderLine
     public function setFlower(?Flower $flower): self
     {
         $this->flower = $flower;
+
+        return $this;
+    }
+
+    public function getCustomerOrder(): ?CustomerOrder
+    {
+        return $this->customerOrder;
+    }
+
+    public function setCustomerOrder(?CustomerOrder $customerOrder): self
+    {
+        $this->customerOrder = $customerOrder;
 
         return $this;
     }
