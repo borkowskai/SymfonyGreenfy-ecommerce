@@ -68,6 +68,11 @@ class CompanyAddress
      */
     private $listOfCustomerOrders;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="companyAddress")
+     */
+    private $client;
+
     public function __construct()
     {
         $this->ListOfOrders = new ArrayCollection();
@@ -215,6 +220,18 @@ class CompanyAddress
                 $listOfCustomerOrder->setDeliveryCustomerAddress(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }

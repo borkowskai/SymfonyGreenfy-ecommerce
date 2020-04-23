@@ -53,11 +53,17 @@ class Client
      */
     private $listOfCustomerOrders;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CompanyAddress", mappedBy="client")
+     */
+    private $companyAddress;
+
     public function __construct()
     {
         $this->ListOfOrders = new ArrayCollection();
         $this->ListOfWishes = new ArrayCollection();
         $this->listOfCustomerOrders = new ArrayCollection();
+        $this->companyAddress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,6 +187,37 @@ class Client
             // set the owning side to null (unless already changed)
             if ($listOfCustomerOrder->getClient() === $this) {
                 $listOfCustomerOrder->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompanyAddress[]
+     */
+    public function getCompanyAddress(): Collection
+    {
+        return $this->companyAddress;
+    }
+
+    public function addCompanyAddress(CompanyAddress $companyAddress): self
+    {
+        if (!$this->companyAddress->contains($companyAddress)) {
+            $this->companyAddress[] = $companyAddress;
+            $companyAddress->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanyAddress(CompanyAddress $companyAddress): self
+    {
+        if ($this->companyAddress->contains($companyAddress)) {
+            $this->companyAddress->removeElement($companyAddress);
+            // set the owning side to null (unless already changed)
+            if ($companyAddress->getClient() === $this) {
+                $companyAddress->setClient(null);
             }
         }
 
