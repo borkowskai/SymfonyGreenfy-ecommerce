@@ -9,6 +9,7 @@ use App\Entity\OrderLine;
 use App\Entity\PaymentType;
 use App\Service\ServiceTVA;
 use App\Entity\CompanyAddress;
+use App\Entity\CustomerOrder;
 use App\Form\CompanyAddressType;
 use App\Repository\FlowerRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +21,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class OrderController extends AbstractController
 {
 
+    public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
+
+        $orderLine = $session->get('orderLine', []);
+      
+        $ordersList = [];
+
+        foreach ($orderLine as $id => $quantity) {
+            $product = $productRepo->find($id);
+            // // Création de l'entité OrderLine
+            $orderLineBD = new OrderLine();
+            $orderLineBD -> setFlower($product);
+            $priceExclVAT = $product->getPriceExclVAT();
+            $orderLineBD -> setActualPriceExclVAT ( $priceExclVAT);
+            $orderLineBD -> setQuantity($quantity);
+            $vatValue = $serviceVat->calculateVAT();
+            $priceVAT =   $priceExclVAT + ( $priceExclVAT*$vatValue)/100.00;
+            $orderLineBD -> setActualPriceVAT ($priceVAT);
+            $ordersList += $orderLineBD ;
+            }
+
+        return $ordersList;
+    }
+
     /**
      * @Route("/order/check_out", name="check_out")
      */
     public function checkOut(Request $request)
     {
-        $order = new Order();
+        $order = new CustomerOrder();
 
 
         // ------------------- adding address ---------------------
@@ -48,11 +72,12 @@ class OrderController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($address);
-            $order->setDeliveryAddress($address);
-            // $order->addListOfOrderLine(addOrderLine);
+            $order->setDeliveryCustomerAddress($address);
+            //$listOfOrders= [];
+            //$listOfOrders = addOrderLine();
+            //$order->addListOfOrderLine($listOfOrders);
 
 
-            // $date = new DateTime('@'.strtotime('now'));
             $date = new DateTime();
             $uniqueNumber = md5(uniqid());
             $order->setNumOrder($uniqueNumber);
@@ -60,7 +85,7 @@ class OrderController extends AbstractController
             $payment= new PaymentType();
             $payment->setPaymentType('paypal');
             $entityManager->persist($payment);
-            $order->setPayment($payment);
+            $order->setPaymentType($payment);
             $entityManager->persist($order);
             
             $entityManager->flush();
@@ -73,36 +98,5 @@ class OrderController extends AbstractController
                 ['form' => $form->createView()]
             );
         }
-
-
-
-
     }
-
-
-
-    // public function addOrderLine(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat){
-
-    //     $orderLine = $session->get('orderLine', []);
-      
-    //     $ordersList = [];
-
-    //     foreach ($orderLine as $id => $quantity) {
-    //         $product = $productRepo->find($id);
-    //         // // Création de l'entité OrderLine
-    //         $orderLineBD = new OrderLine();
-    //         $orderLineBD -> setFlower($product);
-    //         $priceExclVAT = $product->getPriceExclVAT();
-    //         $orderLineBD -> setActualPriceExclVAT ( $priceExclVAT);
-    //         $orderLineBD -> setQuantity($quantity);
-    //         $vatValue = $serviceVat->calculateVAT();
-    //         $priceVAT =   $priceExclVAT + ( $priceExclVAT*$vatValue)/100.00;
-    //         $orderLineBD -> setActualPriceVAT ($priceVAT);
-    //         // // Étape 1 : On « persiste » l'entité
-    //         $ordersList += $orderLineBD ;
-    //         // // Étape 2 : On déclenche l'enregistrement
-    //         }
-
-    //     return $ordersList;
-    // }
 }
