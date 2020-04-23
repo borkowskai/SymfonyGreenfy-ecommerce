@@ -82,7 +82,7 @@ class OrderController extends AbstractController
             
             $entityManager->flush();
     
-            return Response('bravo');
+            return new Response('your order is done');
         }
         else{
             return $this->render(
