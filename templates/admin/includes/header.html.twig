@@ -10,7 +10,11 @@
                     </div>
                 </div>
                 <div class="ht-right">
-                    <a href="{{ path ('app_login') }}" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    {% if app.user %}
+                        <div class="mb-3">
+                            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
                     <div class="lan-selector">
                         <select class="language_drop" name="countries" id="countries" style="width:300px;">
                             <option value='yt' data-image="{{ asset ('assets/img/flag-1.jpg') }}" data-imagecss="flag yt"
