@@ -36,14 +36,10 @@
                             {# TODO select last or similar #}
                             <div class="product-thumbs">
                                 <div class="product-thumbs-track ps-slider owl-carousel">
-                                    <div class="pt active" data-imgbigurl="{{ asset ('assets/img/product-single/product-1.jpg') }}"><img
-                                            src="{{ asset ('assets/img/product-single/product-1.jpg') }}" alt=""></div>
-                                    <div class="pt" data-imgbigurl="{{ asset ('assets/img/product-single/product-2.jpg') }}"><img
-                                            src="{{ asset ('assets/img/product-single/product-2.jpg') }}" alt=""></div>
-                                    <div class="pt" data-imgbigurl="{{ asset ('assets/img/product-single/product-3.jpg') }}"><img
-                                            src="{{ asset ('assets/img/product-single/product-3.jpg') }}" alt=""></div>
-                                    <div class="pt" data-imgbigurl="{{ asset ('assets/img/product-single/product-3.jpg') }}"><img
-                                            src="{{ asset ('assets/img/product-single/product-3.jpg') }}" alt=""></div>
+                                    {% for item in photos %}
+                                        <div class="pt active" data-imgbigurl="{{ asset ('dossierFichiers/' ~ item.photo  ) }}">
+                                        <img src="{{ asset ('dossierFichiers/' ~ item.photo   ) }}" alt="{{ item.name }}"></div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

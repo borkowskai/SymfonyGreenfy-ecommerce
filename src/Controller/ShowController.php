@@ -22,7 +22,6 @@ class ShowController extends AbstractController
             $id =$request->get('id');
             $entityManager = $this->getDoctrine()->getManager();
             $product = $entityManager->getRepository(Flower::class)->findOneBy(array("id"=>$id));
-
           
                 $priceExclVAT= $product->getPriceExclVAT();
                 $vatValue = $serviceVat->calculateVAT();
@@ -30,7 +29,22 @@ class ShowController extends AbstractController
                 $priceVAT= number_format($priceVAT, 2, '.', '');
                 $product->setPriceVAT($priceVAT);
 
-            $vars = ['product' => $product]; 
+                //look for color for other products
+                // $color = $product->getColor();
+
+                // $query = $entityManager->createQuery("SELECT product.name FROM App\Entity\Flower product WHERE product.id = :id ;");
+                // $query->setParameter ('id', 1);
+
+                // $colorResult = $query->getResult();
+                //     var_dump ($colorResult);  
+                // TODO to be corrected by the same colors     
+                $em = $this->getDoctrine()->getManager();
+                $query = $em->createQuery("SELECT product.photo, product.name FROM App\Entity\Flower product");
+                $photos = $query->setMaxResults(8)->getResult();
+
+                $vars = ['product' => $product,
+                        'photos' => $photos
+                    ]; 
             return $this->render("/show/product.html.twig",$vars);
         }
 
