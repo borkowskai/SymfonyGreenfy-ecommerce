@@ -44,12 +44,6 @@ class Client
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="client")
-     */
-    private $ListOfOrders;
-
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Wish", mappedBy="client")
      */
     private $ListOfWishes;
@@ -130,38 +124,6 @@ class Client
 
         return $this;
     }
-
-    /**
-     * @return Collection|Order[]
-     */
-    public function getListOfOrders(): Collection
-    {
-        return $this->ListOfOrders;
-    }
-
-    public function addListOfOrder(Order $listOfOrder): self
-    {
-        if (!$this->ListOfOrders->contains($listOfOrder)) {
-            $this->ListOfOrders[] = $listOfOrder;
-            $listOfOrder->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeListOfOrder(Order $listOfOrder): self
-    {
-        if ($this->ListOfOrders->contains($listOfOrder)) {
-            $this->ListOfOrders->removeElement($listOfOrder);
-            // set the owning side to null (unless already changed)
-            if ($listOfOrder->getClient() === $this) {
-                $listOfOrder->setClient(null);
-            }
-        }
-
-        return $this;
-    }
-
 
     /**
      * @return Collection|Wish[]

@@ -64,11 +64,6 @@ class CompanyAddress
     private $isDelivery;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="deliveryAddress")
-     */
-    private $ListOfOrders;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\CustomerOrder", mappedBy="deliveryCustomerAddress")
      */
     private $listOfCustomerOrders;
@@ -189,37 +184,6 @@ class CompanyAddress
     public function setIsDelivery(?bool $isDelivery): self
     {
         $this->isDelivery = $isDelivery;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Order[]
-     */
-    public function getListOfOrders(): Collection
-    {
-        return $this->ListOfOrders;
-    }
-
-    public function addListOfOrder(Order $listOfOrder): self
-    {
-        if (!$this->ListOfOrders->contains($listOfOrder)) {
-            $this->ListOfOrders[] = $listOfOrder;
-            $listOfOrder->setDeliveryAddress($this);
-        }
-
-        return $this;
-    }
-
-    public function removeListOfOrder(Order $listOfOrder): self
-    {
-        if ($this->ListOfOrders->contains($listOfOrder)) {
-            $this->ListOfOrders->removeElement($listOfOrder);
-            // set the owning side to null (unless already changed)
-            if ($listOfOrder->getDeliveryAddress() === $this) {
-                $listOfOrder->setDeliveryAddress(null);
-            }
-        }
 
         return $this;
     }

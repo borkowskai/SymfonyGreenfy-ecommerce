@@ -29,18 +29,12 @@ class PaymentType
     private $paymentLimit;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="payment")
-     */
-    private $ListOfOrders;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\CustomerOrder", mappedBy="paymentType")
      */
     private $listOfCustomerOrders;
 
     public function __construct()
     {
-        $this->ListOfOrders = new ArrayCollection();
         $this->listOfCustomerOrders = new ArrayCollection();
     }
 
@@ -69,37 +63,6 @@ class PaymentType
     public function setPaymentLimit(?string $paymentLimit): self
     {
         $this->paymentLimit = $paymentLimit;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Order[]
-     */
-    public function getListOfOrders(): Collection
-    {
-        return $this->ListOfOrders;
-    }
-
-    public function addListOfOrder(Order $listOfOrder): self
-    {
-        if (!$this->ListOfOrders->contains($listOfOrder)) {
-            $this->ListOfOrders[] = $listOfOrder;
-            $listOfOrder->setPayment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeListOfOrder(Order $listOfOrder): self
-    {
-        if ($this->ListOfOrders->contains($listOfOrder)) {
-            $this->ListOfOrders->removeElement($listOfOrder);
-            // set the owning side to null (unless already changed)
-            if ($listOfOrder->getPayment() === $this) {
-                $listOfOrder->setPayment(null);
-            }
-        }
 
         return $this;
     }

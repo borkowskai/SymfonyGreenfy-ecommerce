@@ -30,12 +30,7 @@ class OrderLine
      * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $actualPriceVAT;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="ListOfOrderLines")
-     */
-    private $orderNumber;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Flower", inversedBy="ListOfOrderLines")
      */
