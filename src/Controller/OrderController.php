@@ -81,7 +81,9 @@ class OrderController extends AbstractController
             $entityManager->persist($order);
             
             $entityManager->flush();
-    
+            $session->clear();
+            //$session->set('orderLine', []);
+            
             return $this->redirectToRoute('order_done');
         }
         else{
