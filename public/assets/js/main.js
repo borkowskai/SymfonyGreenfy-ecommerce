@@ -246,16 +246,7 @@
 		}
         $button.parent().find('input').val(newVal);
 
-        // console.log("/session/qtyUpdate/" + $button.parent().find('input').attr('id') + "/" + newVal);
-        $.get("/session/qtyUpdate/" + $button.parent().find('input').attr('id') + "/" + newVal, 
-          function(data, status){
-            // console.log("Data: " + data + "\nStatus: " + status);
-            if (status == "success") {
-                var response = jQuery.parseJSON(data);
-                // console.log("JSON: " + response);
-                createBasket(response);
-            }
-          });
+        window.location = "/session/qtyUpdate/" + $button.parent().find('input').attr('id') + "/" + newVal;
     });
     
     /*------------------------
