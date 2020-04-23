@@ -82,7 +82,7 @@ class OrderController extends AbstractController
             
             $entityManager->flush();
     
-            return new Response('your order is done');
+            return $this->redirectToRoute('order_done');
         }
         else{
             return $this->render(
@@ -92,11 +92,11 @@ class OrderController extends AbstractController
         }
     }
 
-    // /**
-    //  * @Route("/order/order_done", name="order_done")
-    //  */
-    // public function order_Done(Request $request)
-    // {
-        
-    // }
+    /**
+     * @Route("/order/order_done", name="order_done")
+     */
+    public function orderDone()
+    {
+            return $this->render('order/order_done.html.twig');
+    }
 }
