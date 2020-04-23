@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2020 at 06:29 PM
+-- Generation Time: Apr 23, 2020 at 11:21 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -38,6 +38,13 @@ INSERT INTO `color` (`id`, `name`, `similar_color`) VALUES
 (9, 'beige', 'cream\r\n'),
 (10, 'cream', 'white\r\n'),
 (11, 'Peach', 'yellow');
+
+--
+-- Dumping data for table `company_address`
+--
+
+INSERT INTO `company_address` (`id`, `company_name`, `street`, `street_number`, `appart_number`, `city`, `zipcode`, `country`, `phone`, `is_delivery`, `client_id`) VALUES
+(1, 'aaa', 'aaa', 2, '1', 'bru', '1200', 'bel', '0405050505', NULL, NULL);
 
 --
 -- Dumping data for table `flower`
@@ -79,23 +86,33 @@ INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
 ('20200407113113', '2020-04-07 11:31:36'),
 ('20200407113735', '2020-04-07 11:38:00'),
 ('20200410134938', '2020-04-10 13:50:56'),
-('20200410135429', '2020-04-10 13:54:46');
+('20200410135429', '2020-04-10 13:54:46'),
+('20200422075946', '2020-04-22 08:00:06');
 
 --
 -- Dumping data for table `order_line`
 --
 
 INSERT INTO `order_line` (`id`, `quantity`, `actual_price_excl_vat`, `actual_price_vat`, `order_number_id`, `flower_id`) VALUES
-(20, 1, '4.15', '5.02', NULL, 10),
-(21, 1, '3.40', '4.11', NULL, 13),
-(22, 1, '4.15', '5.02', NULL, 10),
-(23, 1, '4.15', '5.02', NULL, 10),
-(24, 1, '4.40', '5.32', NULL, 11),
-(25, 1, '4.15', '5.02', NULL, 10),
-(26, 1, '4.15', '5.02', NULL, 10),
-(27, 1, '4.15', '5.02', NULL, 10),
-(28, 1, '4.15', '5.02', NULL, 10),
-(29, 1, '4.15', '5.02', NULL, 10);
+(37, 2, '4.97', NULL, NULL, 21),
+(38, 3, '4.40', NULL, NULL, 11),
+(39, 2, '4.97', NULL, NULL, 21),
+(40, 3, '4.40', NULL, NULL, 11),
+(41, 5, '4.40', NULL, NULL, 11),
+(42, 5, '4.15', NULL, NULL, 10),
+(43, 1, '3.70', NULL, NULL, 12),
+(44, 5, '4.40', NULL, NULL, 11),
+(45, 5, '4.15', NULL, NULL, 10),
+(46, 1, '3.70', NULL, NULL, 12),
+(47, 9, '4.40', '5.32', NULL, 11),
+(48, 5, '4.15', '5.02', NULL, 10),
+(49, 1, '3.70', '4.48', NULL, 12),
+(50, 4, '4.40', '5.32', NULL, 11),
+(51, 1, '3.40', '4.11', NULL, 13),
+(52, 4, '4.40', '5.32', NULL, 11),
+(53, 1, '3.40', '4.11', NULL, 13),
+(54, 4, '4.40', '5.32', NULL, 11),
+(55, 1, '3.40', '4.11', NULL, 13);
 
 --
 -- Dumping data for table `plant_type`
@@ -120,6 +137,21 @@ INSERT INTO `size` (`id`, `name`) VALUES
 
 INSERT INTO `tva` (`id`, `tvavalue`) VALUES
 (1, '21.00');
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `roles`, `password`, `first_name`, `last_name`) VALUES
+(1, 'iza@gmail.com', '[\"ROLE_ADMIN\"]', '$argon2id$v=19$m=65536,t=4,p=1$a3ZDU0xQVGhGdTdlY1ozbQ$hVmS6HQysIi8geoIkUDwJbRcy36FVZcsj/f+kFZ69oU', 'iza', 'test'),
+(2, 'diego@gmail.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$M3MxQVZYbmhzaEMyZ3BVdw$FNplx+OG1+CwiQXdd6V+eAg11ckPcO2A+yXrb4g9p+g', 'diego', 'test'),
+(3, 'leal@gmail.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$bkJJLjJCQ1h2dnI1MjMyWg$MVfpa0bTkrVxvJVNE05FeE8l6b9VVcxBj5n6OdZ+0m8', 'leal', 'test'),
+(4, 'ab@g.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$blZlOVJoNU96ZWZPcmN5Tw$cAJ5/z61b30QVyNRI/0XpwYV4iI3QT/uweKA8fi5OD8', 'af', 'bv'),
+(5, 'abc@g.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$aDVCNW5GMzlZRjVubWguSw$2ga0vW6M8/RNk9TFkmB1v62J77hK1uQqlrDXpIPiwqA', 'aaa', 'vvv'),
+(6, 'a@g.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$ZXZSLjNzUW5nQlBPY0VhNA$FIxPwHY0KqDbWWYtVqCAnjd375x+pdSvntE866a19GY', 'a', 'aa'),
+(7, 'aaaa@g.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$ZzlaUm5CejJ1aGJLTG9hZg$P5+ewQus61zXuJDccieafQ2yGHdLz7rZm8i3iglGuCA', 'a', 'aa'),
+(8, 'abcd@g.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$ZUpHRWgxZ2hFVW53SjNXTA$NjvqP5/SrIiL/kp1aA2rvGGARseJ/OCxh41bTfF85co', 'a', 'b'),
+(9, 'abcg@g.com', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$dnFDV0V0ZnM0VWRzbzhxWg$LIFa6NG4pSUXg7pxlOelaO5knM2S90/yaqswTSIMEas', 'a', 'b');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

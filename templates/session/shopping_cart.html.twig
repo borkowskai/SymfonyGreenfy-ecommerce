@@ -33,9 +33,10 @@
                                         <th>Image</th>
                                         <th class="p-name">Product Name</th>
                                         <th>Price</th>
-                                        <th>Price VAT</th>
+                                        {# <th>Price VAT</th> #}
                                         <th>Quantity</th>
                                         <th>Total</th>
+                                        {# <th>Total VAT</th> #}
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
@@ -47,7 +48,7 @@
                                                 <h5>{{ item.product.name }}</h5>
                                             </td>
                                             <td class="p-price first-row">{{ item.product.priceExclVAT }}</td>
-                                            <td class="p-price first-row">{{ item.product.priceVAT }}</td>
+                                            {# <td class="p-price first-row">{{ item.product.priceVAT }}</td> #}
                                             <td class="qua-col first-row">
                                                 <div class="quantity">
                                                     <div class="pro-qty">
@@ -59,6 +60,7 @@
                                                 </div>
                                             </td>
                                             <td class="total-price first-row">{{ item.product.priceExclVAT * item.quantity }}</td>
+                                            {# <td class="total-price first-row">{{ item.product.priceVAT * item.quantity }}</td> #}
                                             <td> <a href="{{ path('cart_remove', { id : item.product.id  }) }}" class="close-td first-row"><i class="ti-close"></i></a></td>
                                         </tr>
                                     {% endfor %}
@@ -85,6 +87,7 @@
                                     <ul>
                                         <li class="subtotal">Number of items <span>{{ counter }}</span></li>
                                         <li class="cart-total">Total <span>{{ total }}</span></li>
+                                        <li class="cart-total">Total + VAT<span>{{ totalVAT }}</span></li>
                                     </ul>
                                     <a href="{{ path('check_out') }}" class="proceed-btn">PROCEED TO CHECK OUT</a>
                                 </div>

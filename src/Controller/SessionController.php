@@ -40,7 +40,7 @@ class SessionController extends AbstractController
             $photo = $product->getPhoto();
             $priceExclVAT = $product->getPriceExclVAT();
             $vatValue = $serviceVat->calculateVAT();
-            $priceVAT = $priceExclVAT + ($priceExclVAT*$vatValue)/100.00;
+            $priceVAT = ($priceExclVAT + ($priceExclVAT*$vatValue))/100.00;
             // $product->setPriceVAT($priceVAT);
 
             $orderLineWithData[] = [
@@ -71,7 +71,7 @@ class SessionController extends AbstractController
     /**
      * @Route("/session/shopping_cart", name="shopping_cart")
      */
-    public function shoppingCart (SessionInterface $session, FlowerRepository $productRepo)
+    public function shoppingCart (SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat)
     {
         $orderLine = $session->get('orderLine', []);
 
@@ -85,17 +85,25 @@ class SessionController extends AbstractController
         }
 
         $total = 0;
+        $totalVAT = 0;
         $count = 0;
+        $vatValue = $serviceVat->calculateVAT();
 
         foreach ($orderLineWithData as $item) {
-            $totalOrderLine = $item['product']->getPriceExclVAT() * $item['quantity'];
+            $priceExclVAT = $item['product']->getPriceExclVAT();
+            $totalOrderLine =  $priceExclVAT* $item['quantity'];
+            $totalOrderLineVAT = ($priceExclVAT +($priceExclVAT*$vatValue)/100.00 )* $item['quantity'];
             $total += $totalOrderLine;
+            $totalVAT += $totalOrderLineVAT;
             $count ++;
         }
+        $total = number_format( $total, 2, '.', '');
+        $totalVAT= number_format( $totalVAT, 2, '.', '');
 
         return $this->render('session/shopping_cart.html.twig', [
             'items' => $orderLineWithData,
             'total' => $total,
+            'totalVAT' => $totalVAT,
             'counter' => $count
             ]);
     }
