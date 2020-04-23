@@ -331,5 +331,35 @@
         
     });
 
-    
+    $("#filter-btn").click(
+        function() {
+            
+            var sizes = [];
+            $.each($("input[name='bc-size']:checked"), function() {
+                sizes.push($(this).val());
+            });
+
+            //.substr(1) to remove currency sign $123 -> 123
+            var minamount = $("#minamount").val().substr(1);
+            var maxamount = $("#maxamount").val().substr(1);
+
+            var colors = [];
+            $.each($("input[name='cs-color']:checked"), function() {
+                colors.push($(this).val());
+            });
+
+            //ajax post call with jquery
+            $.post("/ajax/fetchFilteredProducts", 
+            {
+                sizes: sizes,
+                minamount: minamount,
+                maxamount: maxamount,
+                colors: colors
+            },
+            // callback method that updates the filtered product list
+            function(data, status) {
+                $("#product-list-row").html(data);
+            });
+        }
+    );
 })(jQuery);

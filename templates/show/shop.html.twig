@@ -97,45 +97,8 @@
                     <div class="product-list">
                         <div id="product-list-row" class="row">
                             {# ----------- show products -------------#}
-                            {% for product in products %}
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="product-item">
-                                        <div class="pi-pic">
-                                        {# concat concatenation #}
-                                            <img src="{{ asset ('dossierFichiers/' ~ product.photo  ) }}" alt="{{ product.name }}">
-                                            {# <div class="sale pp-sale">Sale</div> #}
-                                            <div class="icon">
-                                                <i class="icon_heart_alt wish" id="icon_heart_alt_wish"></i>
-                                            </div>
-                                            <ul>
-                                            {# <li class="w-icon active basket"><a href="#"><i class="icon_bag_alt"></i></a></li> #}
-                                                <li class="w-icon active basket"><a href="{{ path('cart_add', {id : product.id }) }}" data-basket-id={{product.id}}><i class="icon_bag_alt"></i></a></li>
-                                                <li class="quick-view"><a href="{{ path ('show-product', { id : product.id }) }}">+ Quick View</a></li>
-                                                {# <li class="w-icon"><a href="{{ path('cart_add', {id : product.id }) }}" data-basket-id={{product.id}}><i class="fa fa-random"></i></a></li> #}
-                                            </ul>
-                                        </div>
-                                        <div class="pi-text">
-                                        {# TODO #}
-                                            <div class="catagory-name"> {{ product.getPlantType.GetName }} </div>
-                                            <a href="#">
-                                                <h5>{{ product.name }}</h5>
-                                            </a>
-                                            <div class="product-price">
-                                                Price {{ product.priceExclVAT }}
-                                                {# <span>{{ product.priceExclVAT * 1.2}} </span> #}
-                                            </div>
-                                            <div class="product-price">
-                                                Price VAT {{ product.priceVAT }}
-                                                {# <span>{{ product.priceVAT * 1.2}}</span> #}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                            {% include "./show/productList.html.twig" %}
                             {# ----------- show products  end-------------#}
-
-
-
                         </div>
                     </div>
                     <div class="loading-more">
@@ -153,37 +116,4 @@
 
 {% block javascripts %}
 {{ parent() }}
-    <script>
-        $("#filter-btn").click(
-            function() {
-                
-                var sizes = [];
-                $.each($("input[name='bc-size']:checked"), function() {
-                    sizes.push($(this).val());
-                });
-
-                //.substr(1) to remove currency sign $123 -> 123
-                var minamount = $("#minamount").val().substr(1);
-                var maxamount = $("#maxamount").val().substr(1);
-
-                var colors = [];
-                $.each($("input[name='cs-color']:checked"), function() {
-                    colors.push($(this).val());
-                });
-
-                //ajax post call with jquery
-                $.post("/ajax/fetchFilteredProducts", 
-                {
-                    sizes: sizes,
-                    minamount: minamount,
-                    maxamount: maxamount,
-                    colors: colors
-                },
-                // callback method that updates the filtered product list
-                function(data, status) {
-                    $("#product-list-row").html(data);
-                });
-            }
-        );
-    </script>
 {% endblock %}
