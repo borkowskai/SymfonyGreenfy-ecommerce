@@ -316,7 +316,7 @@
             })
     });
 
-    $('[data-basket-id]').click(function(e){
+    var addProductFunction = function (e) {
         e.preventDefault();
 
         const id = $(this).data('basket-id');
@@ -329,7 +329,9 @@
                 sumBasket(response);
             });
         
-    });
+    };
+
+    $('[data-basket-id]').click(addProductFunction);
 
     $("#filter-btn").click(
         function() {
@@ -359,6 +361,9 @@
             // callback method that updates the filtered product list
             function(data, status) {
                 $("#product-list-row").html(data);
+
+                //recreate the click event for the refreshed products
+                $('[data-basket-id]').click(addProductFunction);
             });
         }
     );
