@@ -45,14 +45,15 @@ class AdminController extends AbstractController
 
             // traiter le formulaire
 
-            // ajouter TVA
+            // ajouter TVA - pas necessaire cela doit etre a jour l'affichage
             // open DB
             $entityManager = $this->getDoctrine()->getManager();
-            $tva = $entityManager->getRepository(TVA::class)->findAll();
-            $tvaValue = $tva[0]->getTVAvalue();
+
+            // $tva = $entityManager->getRepository(TVA::class)->findAll();
+            // $tvaValue = $tva[0]->getTVAvalue();
             $priceExclVAT = $product->getPriceExclVAT();
-            $priceVAT = $priceExclVAT+(($priceExclVAT*$tvaValue)/100.00);
-            $product->setPriceVAT($priceVAT);
+            // $priceVAT = $priceExclVAT+(($priceExclVAT*$tvaValue)/100.00);
+            // $product->setPriceVAT($priceVAT);
 
             // obtenir le fichier (objet)
             // obtenir le fichier (pas un "string" mais un objet de la class UploadedFile)
