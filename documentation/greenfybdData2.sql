@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2020 at 06:29 PM
+-- Generation Time: Apr 24, 2020 at 09:06 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -40,6 +40,32 @@ INSERT INTO `color` (`id`, `name`, `similar_color`) VALUES
 (11, 'Peach', 'yellow');
 
 --
+-- Dumping data for table `company_address`
+--
+
+INSERT INTO `company_address` (`id`, `company_name`, `street`, `street_number`, `appart_number`, `city`, `zipcode`, `country`, `phone`, `client_id`) VALUES
+(1, 'aaa', 'aaa', 2, '1', 'bru', '1200', 'bel', '0405050505', NULL),
+(5, 'testInsertion', 'testInsertion', 5, '4', 'testInsertion', '1244', 'testInsertion', '0909090090', NULL),
+(6, 'testInsertionOrders3', 'testInsertionOrders3', 3, '3', 'testInsertionOrders3', '4343', 'testInsertionOrders3', '656565656', NULL),
+(7, 'testInsertionOrders4', 'testInsertionOrders4', 5, '5', 'testInsertionOrders4', '5555', 'testInsertionOrders4', '7868686868', NULL),
+(8, 'test2', 'test2', 4, 'test2', 'test2', 'test2', 'test2', 'test2', NULL),
+(9, 'sasa', 'sasa', 4, '4', 'sasa', '43434', 'sasa', '767676767', NULL),
+(10, 'aaaaa', 'aaaaa', 4, '4', 'freeeee', '1222', 'freee', '5656565', NULL),
+(11, 'testafterremove', 'testafterremove', 6, '5', 'testafterremove', '3232', 'testafterremove', '0798989898', NULL);
+
+--
+-- Dumping data for table `customer_order`
+--
+
+INSERT INTO `customer_order` (`id`, `client_id`, `delivery_customer_address_id`, `payment_type_id`, `num_order`, `date_order`) VALUES
+(7, NULL, 6, 5, 'b28f941fbe3905177b00a5d032933cc4', '2020-04-23'),
+(8, NULL, 7, 6, 'ee75996261abcdb20acb5a3e91aa095c', '2020-04-23'),
+(9, NULL, 8, 7, '58c0c083b02849a4b94aae15dc034b59', '2020-04-23'),
+(10, NULL, 9, 8, 'f7c3c04429fe113abe08336ac261c5c4', '2020-04-23'),
+(11, NULL, 10, 9, '75fab0f0c0ac74e1bec8ce7d34af2144', '2020-04-23'),
+(12, NULL, 11, 10, 'dd824435bbb8f61b94c4175a2f8daf7e', '2020-04-23');
+
+--
 -- Dumping data for table `flower`
 --
 
@@ -66,23 +92,68 @@ INSERT INTO `flower` (`id`, `name`, `photo`, `price_excl_vat`, `price_vat`, `reo
 (31, 'Muscati Orchid', 'b7cdb75a369114fc365a5d1e27686373.jpeg', '4.10', '4.96', 10, 10, 9, 3, 1, 'The largest genera are Bulbophyllum (2,000 species), Epidendrum (1,500 species), Dendrobium (1,400 species) and Pleurothallis (1,000 species). It also includes Vanilla (the genus of the vanilla plant), the type genus Orchis, and many commonly cultivated plants such as Phalaenopsis and Cattleya'),
 (35, 'Queen Elisabeth Orchid', '02ce927e354959f99281af3aa51ffdcf.jpeg', '5.10', '6.17', 10, 10, 1, 3, 1, 'The largest genera are Bulbophyllum (2,000 species), Epidendrum (1,500 species), Dendrobium (1,400 species) and Pleurothallis (1,000 species). It also includes Vanilla (the genus of the vanilla plant), the type genus Orchis, and many commonly cultivated plants such as Phalaenopsis and Cattleya');
 
+--
+-- Dumping data for table `migration_versions`
+--
 
+INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
+('20200401134143', '2020-04-01 13:42:20'),
+('20200404214840', '2020-04-04 21:49:01'),
+('20200404222002', '2020-04-04 22:20:17'),
+('20200406095025', '2020-04-06 09:50:37'),
+('20200406095518', '2020-04-06 09:58:06'),
+('20200407113113', '2020-04-07 11:31:36'),
+('20200407113735', '2020-04-07 11:38:00'),
+('20200410134938', '2020-04-10 13:50:56'),
+('20200410135429', '2020-04-10 13:54:46'),
+('20200422075946', '2020-04-22 08:00:06'),
+('20200423092012', '2020-04-23 09:21:32'),
+('20200423181118', '2020-04-23 18:13:31'),
+('20200423184427', '2020-04-23 18:44:43'),
+('20200423190440', '2020-04-23 19:04:54');
 
 --
 -- Dumping data for table `order_line`
 --
 
-INSERT INTO `order_line` (`id`, `quantity`, `actual_price_excl_vat`, `actual_price_vat`, `order_number_id`, `flower_id`) VALUES
-(20, 1, '4.15', '5.02', NULL, 10),
-(21, 1, '3.40', '4.11', NULL, 13),
-(22, 1, '4.15', '5.02', NULL, 10),
-(23, 1, '4.15', '5.02', NULL, 10),
-(24, 1, '4.40', '5.32', NULL, 11),
-(25, 1, '4.15', '5.02', NULL, 10),
-(26, 1, '4.15', '5.02', NULL, 10),
-(27, 1, '4.15', '5.02', NULL, 10),
-(28, 1, '4.15', '5.02', NULL, 10),
-(29, 1, '4.15', '5.02', NULL, 10);
+INSERT INTO `order_line` (`id`, `quantity`, `actual_price_excl_vat`, `actual_price_vat`, `flower_id`, `customer_order_id`) VALUES
+(56, 1, '4.40', '5.32', 11, 7),
+(57, 3, '3.70', '4.48', 12, 7),
+(58, 1, '4.40', '5.32', 11, 8),
+(59, 3, '3.70', '4.48', 12, 8),
+(60, 2, '4.40', '5.32', 11, 9),
+(61, 2, '3.96', '4.79', 15, 9),
+(62, 1, '4.10', '4.96', 18, 9),
+(63, 1, '4.40', '5.32', 11, 10),
+(64, 2, '3.80', '4.60', 20, 10),
+(65, 3, '5.10', '6.17', 35, 10),
+(66, 2, '4.40', '5.32', 14, 10),
+(67, 1, '3.96', '4.79', 15, 10),
+(68, 1, '4.75', '5.75', 22, 10),
+(69, 1, '4.97', '6.01', 21, 10),
+(70, 2, '4.40', '5.32', 11, 11),
+(71, 2, '3.70', '4.48', 12, 11),
+(72, 2, '3.96', '4.79', 15, 11),
+(73, 1, '4.40', '5.32', 14, 11),
+(74, 1, '3.40', '4.11', 13, 11),
+(75, 1, '4.70', '5.69', 16, 11),
+(76, 1, '4.40', '5.32', 11, 12),
+(77, 5, '4.15', '5.02', 10, 12),
+(78, 1, '4.70', '5.69', 16, 12);
+
+--
+-- Dumping data for table `payment_type`
+--
+
+INSERT INTO `payment_type` (`id`, `payment_type`, `payment_limit`) VALUES
+(3, 'paypal', NULL),
+(4, 'paypal', NULL),
+(5, 'paypal', NULL),
+(6, 'paypal', NULL),
+(7, 'paypal', NULL),
+(8, 'paypal', NULL),
+(9, 'paypal', NULL),
+(10, 'paypal', NULL);
 
 --
 -- Dumping data for table `plant_type`
@@ -107,7 +178,6 @@ INSERT INTO `size` (`id`, `name`) VALUES
 
 INSERT INTO `tva` (`id`, `tvavalue`) VALUES
 (1, '21.00');
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
