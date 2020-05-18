@@ -3,18 +3,19 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\Client;
 use App\Entity\OrderLine;
 use App\Entity\PaymentType;
 use App\Service\ServiceTVA;
-use App\Entity\CompanyAddress;
 use App\Entity\CustomerOrder;
+use App\Entity\CompanyAddress;
 use App\Form\CompanyAddressType;
 use App\Repository\FlowerRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends AbstractController
 {
@@ -24,8 +25,16 @@ class OrderController extends AbstractController
     public function checkOut(Request $request, SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat)
     {
         $order = new CustomerOrder();
+        $client = new Client();
 
         $entityManager = $this->getDoctrine()->getManager();
+
+            // ------------------- adding customer ----------------
+            // $clientData = $this->getUser();
+            // $clientData->getFirstName();
+            // $clientData->getLastName();
+            // dd($client);
+            // //$entityManager->persist($client);
 
         // ------------------- adding orderLines ---------------------
         $orderLine = $session->get('orderLine', []);
@@ -63,6 +72,8 @@ class OrderController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
 
         // ------------------- openning DB ---------------------
 
