@@ -92,10 +92,10 @@ class OrderController extends AbstractController
             $entityManager->persist($order);
             
             $entityManager->flush();
-            $session->clear();
+            //$session->clear();
             //$session->set('orderLine', []);
             
-            return $this->redirectToRoute('order_done');
+            return $this->redirectToRoute('payment');
         }
         else{
             return $this->render(
@@ -103,6 +103,14 @@ class OrderController extends AbstractController
                 ['form' => $form->createView()]
             );
         }
+    }
+
+    /**
+     * @Route("/order/payment", name="payment")
+     */
+    public function payment()
+    {
+            return $this->render('order/payment.html.twig');
     }
 
     /**

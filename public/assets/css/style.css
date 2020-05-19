@@ -3120,6 +3120,17 @@ ol {
 	border-color: #000000;
 }
 
+
+/*---------------------
+    Payment
+-----------------------*/
+
+h4.payment{
+	padding-bottom: 3rem;
+	text-align: center;
+	font-weight: 800;
+
+}
 /*---------------------
   Blog Section
 -----------------------*/
@@ -4366,3 +4377,4 @@ ol {
 		padding-right: 15px;
 	}
 }
+

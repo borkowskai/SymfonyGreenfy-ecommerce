@@ -10,8 +10,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="./shop.html">Shop</a>
+                        <a href="{{ path ('index') }}"><i class="fa fa-home"></i> Home</a>
+                        <a href="{{ path ('show-shop') }}">Shop</a>
                         <span>Check Out</span>
                     </div>
                 </div>
@@ -104,15 +104,6 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div> #}
-                                    {# PAYPAL - TODO in live change id client #}
-                                    <script
-                                        src="https://www.paypal.com/sdk/js?client-id=Ae8CsxNloOtyxlGywMCuHgLdRsr0zekJcvK3oNoD65b-7TV8JFa0ZFy-UNc5kOtPhSjb_Qj2ZYqKJBO4"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
-                                    </script>
-                                    <div id="paypal-button-container"></div>
-                                    
-
-
-
                                 </div>
                                 <div class="order-btn">
                                     <button type="submit" class="site-btn place-btn">Place Order</button>
