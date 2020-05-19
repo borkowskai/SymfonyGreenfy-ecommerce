@@ -2705,6 +2705,9 @@ ol {
 .cart-table table tr td.first-row img{
 	width: 50%;
 	height: 40%;	
+	max-width: 220px;
+	max-height:150px ;
+
 }
 .cart-table table tr td.first-row {
 	padding-top: 30px;
