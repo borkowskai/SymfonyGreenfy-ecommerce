@@ -248,9 +248,13 @@
 
         window.location = "/session/qtyUpdate/" + $button.parent().find('input').attr('id') + "/" + newVal;
     });
+
+    /*-----------------------------------------------------------
+                    Azi MANIPULATION
+    ------------------------------------------------------------*/
     
     /*------------------------
-		Iza Wish
+		      Wish
     -------------------------- */
 
     let countWish = 0;
@@ -262,7 +266,7 @@
     });
 
     /*-----------------------------
-		Iza Basket Management
+		    Basket Management
     ------------------------------ */
     let addBasket = $('.addBasket');
     addBasket.html(0);
@@ -295,8 +299,10 @@
         }
         $(addBasket).html(counter);
         $(sum_basket).html(total.toFixed(2) + " €");
-        console.log(total);
     }
+
+
+    
 
     //important to do ifnot after refresh nothing in json 
     $(document).ready(function(){
@@ -317,13 +323,16 @@
             .then(response => response.json())
             .then(response => {
                 createBasket(response);
-                sumBasket(response);
+                //sumBasket(response);
             });
         
     };
 
     $('[data-basket-id]').click(addProductFunction);
 
+    /*-----------------------------
+		D filters in shop
+    ------------------------------ */
     $("#filter-btn").click(
         function() {
             
@@ -358,4 +367,14 @@
             });
         }
     );
+
+    
+    /*-----------------------------
+		Paypal
+    ------------------------------ */
+    //probleme pour prendre directement variable de PHP
+    //eviter d'appeler de JS pour eviter la manipulation
+    //tout se fait dans le twig - payment.html.twig
+
 })(jQuery);
+

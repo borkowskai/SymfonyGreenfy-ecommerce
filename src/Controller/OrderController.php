@@ -92,10 +92,10 @@ class OrderController extends AbstractController
             $entityManager->persist($order);
             
             $entityManager->flush();
-            $session->clear();
+            //$session->clear();
             //$session->set('orderLine', []);
             
-            return $this->redirectToRoute('order_done');
+            return $this->redirectToRoute('payment');
         }
         else{
             return $this->render(
@@ -106,10 +106,25 @@ class OrderController extends AbstractController
     }
 
     /**
+     * @Route("/order/payment", name="payment")
+     */
+    public function payment(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat)
+    {
+        $totalVAT = $session->get('totalVAT', 0);
+        $totalVAT= number_format( $totalVAT, 2, '.', '');
+
+        return $this->render('order/payment.html.twig', [
+            'totalVAT' => $totalVAT,
+        ]);
+       
+    }
+
+    /**
      * @Route("/order/order_done", name="order_done")
      */
-    public function orderDone()
+    public function orderDone(SessionInterface $session)
     {
-            return $this->render('order/order_done.html.twig');
+        $session->clear();
+        return $this->render('order/order_done.html.twig');
     }
 }

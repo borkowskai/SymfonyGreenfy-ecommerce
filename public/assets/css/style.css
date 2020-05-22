@@ -2705,6 +2705,9 @@ ol {
 .cart-table table tr td.first-row img{
 	width: 50%;
 	height: 40%;	
+	max-width: 220px;
+	max-height:150px ;
+
 }
 .cart-table table tr td.first-row {
 	padding-top: 30px;
@@ -3117,6 +3120,17 @@ ol {
 	border-color: #000000;
 }
 
+
+/*---------------------
+    Payment
+-----------------------*/
+
+h4.payment{
+	padding-bottom: 3rem;
+	text-align: center;
+	font-weight: 800;
+
+}
 /*---------------------
   Blog Section
 -----------------------*/
@@ -4363,3 +4377,4 @@ ol {
 		padding-right: 15px;
 	}
 }
+
