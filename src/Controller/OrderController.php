@@ -108,9 +108,43 @@ class OrderController extends AbstractController
     /**
      * @Route("/order/payment", name="payment")
      */
-    public function payment()
+    public function payment(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat)
     {
-            return $this->render('order/payment.html.twig');
+        
+        $orderLine = $session->get('orderLine', []);
+
+        $orderLineWithData = [];
+
+        foreach ($orderLine as $id => $quantity) {
+            $orderLineWithData[] = [
+                'product' => $productRepo->find($id),
+                'quantity' => $quantity
+            ];
+        }
+
+        $total = 0;
+        $totalVAT = 0;
+        $count = 0;
+        $vatValue = $serviceVat->calculateVAT();
+
+        foreach ($orderLineWithData as $item) {
+            $priceExclVAT = $item['product']->getPriceExclVAT();
+            $totalOrderLine =  $priceExclVAT* $item['quantity'];
+            $totalOrderLineVAT = ($priceExclVAT +($priceExclVAT*$vatValue)/100.00 )* $item['quantity'];
+            $total += $totalOrderLine;
+            $totalVAT += $totalOrderLineVAT;
+            $count ++;
+        }
+        $total = number_format( $total, 2, '.', '');
+        $totalVAT= number_format( $totalVAT, 2, '.', '');
+
+        return $this->render('order/payment.html.twig', [
+            'items' => $orderLineWithData,
+            'total' => $total,
+            'totalVAT' => $totalVAT,
+            'counter' => $count
+            ]);
+       
     }
 
     /**
