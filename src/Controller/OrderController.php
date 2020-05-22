@@ -110,48 +110,21 @@ class OrderController extends AbstractController
      */
     public function payment(SessionInterface $session, FlowerRepository $productRepo, ServiceTVA $serviceVat)
     {
-        
-        $orderLine = $session->get('orderLine', []);
-
-        $orderLineWithData = [];
-
-        foreach ($orderLine as $id => $quantity) {
-            $orderLineWithData[] = [
-                'product' => $productRepo->find($id),
-                'quantity' => $quantity
-            ];
-        }
-
-        $total = 0;
-        $totalVAT = 0;
-        $count = 0;
-        $vatValue = $serviceVat->calculateVAT();
-
-        foreach ($orderLineWithData as $item) {
-            $priceExclVAT = $item['product']->getPriceExclVAT();
-            $totalOrderLine =  $priceExclVAT* $item['quantity'];
-            $totalOrderLineVAT = ($priceExclVAT +($priceExclVAT*$vatValue)/100.00 )* $item['quantity'];
-            $total += $totalOrderLine;
-            $totalVAT += $totalOrderLineVAT;
-            $count ++;
-        }
-        $total = number_format( $total, 2, '.', '');
+        $totalVAT = $session->get('totalVAT', 0);
         $totalVAT= number_format( $totalVAT, 2, '.', '');
 
         return $this->render('order/payment.html.twig', [
-            'items' => $orderLineWithData,
-            'total' => $total,
             'totalVAT' => $totalVAT,
-            'counter' => $count
-            ]);
+        ]);
        
     }
 
     /**
      * @Route("/order/order_done", name="order_done")
      */
-    public function orderDone()
+    public function orderDone(SessionInterface $session)
     {
-            return $this->render('order/order_done.html.twig');
+        $session->clear();
+        return $this->render('order/order_done.html.twig');
     }
 }

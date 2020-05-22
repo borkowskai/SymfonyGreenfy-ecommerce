@@ -12,6 +12,7 @@
                     <div class="breadcrumb-text product-more">
                         <a href="{{ path ('index') }}"><i class="fa fa-home"></i> Home</a>
                         <a href="{{ path ('show-shop') }}">Shop</a>
+                        <a href="{{ path ('shopping_cart') }}">Shopping Cart</a>
                         <a href="{{ path ('check_out') }}">Check Out</a>
                         <span>Payment Method</span>
                     </div>
@@ -61,6 +62,7 @@
         return actions.order.capture().then(function(details) {
             // This function shows a transaction success message to your buyer.
             alert('Transaction completed by ' + details.payer.name.given_name);
+            window.location = "/order/order_done";
         });
         }
     }).render('#paypal-button-container');

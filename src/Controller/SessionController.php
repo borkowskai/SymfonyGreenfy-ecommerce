@@ -97,8 +97,10 @@ class SessionController extends AbstractController
             $totalVAT += $totalOrderLineVAT;
             $count ++;
         }
+
         $total = number_format( $total, 2, '.', '');
         $totalVAT= number_format( $totalVAT, 2, '.', '');
+        $session->set('totalVAT', $totalVAT);
 
         return $this->render('session/shopping_cart.html.twig', [
             'items' => $orderLineWithData,
