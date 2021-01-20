@@ -43,7 +43,7 @@
                                 <tbody>              
                                     {% for item in items %}
                                         <tr>
-                                            <td class="cart-pic first-row"><img src="{{ asset ('dossierFichiers/' ~ item.product.photo  ) }}" alt="{{ item.product.name }}"></td>
+                                            <td class="cart-pic d-none d-md-block first-row"><img src="{{ asset ('dossierFichiers/' ~ item.product.photo  ) }}" alt="{{ item.product.name }}"></td>
                                             <td class="cart-title first-row">
                                                 <h5>{{ item.product.name }}</h5>
                                             </td>

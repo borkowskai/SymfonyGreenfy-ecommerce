@@ -39,6 +39,23 @@ INSERT INTO `color` (`id`, `name`, `similar_color`) VALUES
 (10, 'cream', 'white'),
 (11, 'Peach', 'yellow');
 
+
+--
+-- Dumping data for table `plant_type`
+--
+
+INSERT INTO `plant_type` (`id`, `name`, `plant_family`) VALUES
+(1, 'orchid', 'Orchidaceae\r\n');
+
+--
+-- Dumping data for table `size`
+--
+
+INSERT INTO `size` (`id`, `name`) VALUES
+(1, 'small'),
+(2, 'middle'),
+(3, 'bigger'),
+(4, 'complet');
 --
 -- Dumping data for table `company_address`
 --
@@ -53,6 +70,20 @@ INSERT INTO `company_address` (`id`, `company_name`, `street`, `street_number`, 
 (10, 'aaaaa', 'aaaaa', 4, '4', 'freeeee', '1222', 'freee', '5656565', NULL),
 (11, 'testafterremove', 'testafterremove', 6, '5', 'testafterremove', '3232', 'testafterremove', '0798989898', NULL);
 
+
+--
+-- Dumping data for table `payment_type`
+--
+
+INSERT INTO `payment_type` (`id`, `payment_type`, `payment_limit`) VALUES
+(3, 'paypal', NULL),
+(4, 'paypal', NULL),
+(5, 'paypal', NULL),
+(6, 'paypal', NULL),
+(7, 'paypal', NULL),
+(8, 'paypal', NULL),
+(9, 'paypal', NULL),
+(10, 'paypal', NULL);
 --
 -- Dumping data for table `customer_order`
 --
@@ -140,37 +171,6 @@ INSERT INTO `order_line` (`id`, `quantity`, `actual_price_excl_vat`, `actual_pri
 (76, 1, '4.40', '5.32', 11, 12),
 (77, 5, '4.15', '5.02', 10, 12),
 (78, 1, '4.70', '5.69', 16, 12);
-
---
--- Dumping data for table `payment_type`
---
-
-INSERT INTO `payment_type` (`id`, `payment_type`, `payment_limit`) VALUES
-(3, 'paypal', NULL),
-(4, 'paypal', NULL),
-(5, 'paypal', NULL),
-(6, 'paypal', NULL),
-(7, 'paypal', NULL),
-(8, 'paypal', NULL),
-(9, 'paypal', NULL),
-(10, 'paypal', NULL);
-
---
--- Dumping data for table `plant_type`
---
-
-INSERT INTO `plant_type` (`id`, `name`, `plant_family`) VALUES
-(1, 'orchid', 'Orchidaceae\r\n');
-
---
--- Dumping data for table `size`
---
-
-INSERT INTO `size` (`id`, `name`) VALUES
-(1, 'small'),
-(2, 'middle'),
-(3, 'bigger'),
-(4, 'complet');
 
 --
 -- Dumping data for table `tva`

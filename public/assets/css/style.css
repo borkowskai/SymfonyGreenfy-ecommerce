@@ -2714,7 +2714,7 @@ ol {
 }
 
 .cart-table table tr td.cart-pic {
-	width: 15%;
+	/* width: 15%; */
 }
 
 .cart-table table tr td.cart-title {
